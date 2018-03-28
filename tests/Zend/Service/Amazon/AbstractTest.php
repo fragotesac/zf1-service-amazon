@@ -32,7 +32,7 @@
  * @group      Zend_Service
  * @group      Zend_Service_Amazon
  */
-class AmamzonAbstract extends PHPUnit\Framework\TestCase
+class Zend_Service_Amazon_AbstractTest extends PHPUnit\Framework\TestCase
 {
     /**
      * Prepares the environment before running a test.
@@ -52,12 +52,13 @@ class AmamzonAbstract extends PHPUnit\Framework\TestCase
 
     public function testNoKeysThrowException()
     {
-        try {
-            $class = new TestAmamzonAbstract();
-            $this->fail('Exception should be thrown when no keys are passed in.');
-        } catch(Zend_Service_Amazon_Exception $zsae) {}
+        $this->expectException(Zend_Service_Amazon_Exception::class);
+        $class = new TestAmamzonAbstract();
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testConstructorWithKeysDoesNotThrowException()
     {
         try {

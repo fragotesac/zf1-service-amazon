@@ -74,11 +74,8 @@ class Zend_Service_Amazon_Ec2_KeypairTest extends PHPUnit\Framework\TestCase
 
     public function testCreateKeyPairNoNameThrowsException()
     {
-        try {
-            $this->Zend_Service_Amazon_Ec2_Keypair->create('');
-            $this->fail('An exception should be thrown if an empty keyname is passed in.');
-        } catch (Zend_Service_Amazon_Ec2_Exception $zsaee) {
-        }
+        $this->expectException(Zend_Service_Amazon_Ec2_Exception::class);
+        $this->Zend_Service_Amazon_Ec2_Keypair->create('');
     }
 
     /**
@@ -205,11 +202,8 @@ class Zend_Service_Amazon_Ec2_KeypairTest extends PHPUnit\Framework\TestCase
 
     public function testDeleteKeyPairNoNameThrowsException()
     {
-        try {
-            $this->Zend_Service_Amazon_Ec2_Keypair->delete('');
-            $this->fail('An exception should be thrown if an empty keyname is passed in.');
-        } catch (Zend_Service_Amazon_Ec2_Exception $zsaee) {
-        }
+        $this->expectException(Zend_Service_Amazon_Ec2_Exception::class);
+        $this->Zend_Service_Amazon_Ec2_Keypair->delete('');
     }
 
     public function testDeleteFailsOnNonValidKey()

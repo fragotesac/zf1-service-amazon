@@ -73,12 +73,8 @@ class Zend_Service_Amazon_Ec2_AbstractTest extends PHPUnit\Framework\TestCase
 
     public function testSetInvalidRegionThrowsException()
     {
-        try {
-            TestAmamzonEc2Abstract::setRegion('eu-west-1a');
-            $this->fail('Invalid Region Set with no Exception Thrown');
-        } catch (Zend_Service_Amazon_Exception $zsae) {
-            // do nothing
-        }
+        $this->expectException(Zend_Service_Amazon_Exception::class);
+        TestAmamzonEc2Abstract::setRegion('eu-west-1a');
     }
 
     public function testSignParamsWithSpaceEncodesWithPercentInsteadOfPlus()

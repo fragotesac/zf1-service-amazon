@@ -540,10 +540,8 @@ class Zend_Service_Amazon_Ec2_ImageTest extends PHPUnit\Framework\TestCase
 
     public function testModifyAttributeThrowsExceptionOnInvalidAttribute()
     {
-        try {
-            $return = $this->Zend_Service_Amazon_Ec2_Image->modifyAttribute('ami-61a54008', 'invalidPermission', 'add', '495219933132', 'all');
-            $this->fail('An exception should be throw if you are modifying an invalid attirubte');
-        } catch (Zend_Service_Amazon_Ec2_Exception $zsaee) {}
+        $this->expectException(Zend_Service_Amazon_Ec2_Exception::class);
+        $return = $this->Zend_Service_Amazon_Ec2_Image->modifyAttribute('ami-61a54008', 'invalidPermission', 'add', '495219933132', 'all');
     }
 
     public function testModifyAttributeProuctCodes()

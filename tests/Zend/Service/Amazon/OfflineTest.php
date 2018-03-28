@@ -105,6 +105,7 @@ class Zend_Service_Amazon_OfflineTest extends PHPUnit\Framework\TestCase
 
     /**
      * @group ZF-2749
+     * @doesNotPerformAssertions
      */
     public function testSimilarProductConstructorMissingAttributeDoesNotThrowNotice()
     {
@@ -336,11 +337,7 @@ class Zend_Service_Amazon_OfflineTest extends PHPUnit\Framework\TestCase
 
     	$result = new Zend_Service_Amazon_ResultSet($dom);
 
-    	try {
-    		$result->current();
-    		$this->fail('Expected exception was not triggered');
-    	} catch (Zend_Service_Amazon_Exception $e) {
-			return;
-    	}
+    	$this->expectException(Zend_Service_Amazon_Exception::class);
+    	$result->current();
     }
 }
