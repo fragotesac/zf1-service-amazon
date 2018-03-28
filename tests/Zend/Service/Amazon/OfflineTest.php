@@ -22,32 +22,6 @@
 
 
 /**
- * @see Zend_Service_Amazon
- */
-require_once 'Zend/Service/Amazon.php';
-
-/**
- * @see Zend_Service_Amazon_ResultSet
- */
-require_once 'Zend/Service/Amazon/ResultSet.php';
-
-/**
- * @see Zend_Service_Amazon_ResultSet
- */
-require_once 'Zend/Service/Amazon/SimilarProduct.php';
-
-/**
- * @see Zend_Http_Client_Adapter_Socket
- */
-require_once 'Zend/Http/Client/Adapter/Socket.php';
-
-/**
- * @see Zend_Http_Client_Adapter_Test
- */
-require_once 'Zend/Http/Client/Adapter/Test.php';
-
-
-/**
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage UnitTests

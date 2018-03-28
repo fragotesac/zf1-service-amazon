@@ -20,16 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * @see Zend_Service_Amazon
- */
-require_once 'Zend/Service/Amazon/S3.php';
-
-/**
- * @see Zend_Http_Client_Adapter_Socket
- */
-require_once 'Zend/Http/Client/Adapter/Socket.php';
-
 
 /**
  * @category   Zend
