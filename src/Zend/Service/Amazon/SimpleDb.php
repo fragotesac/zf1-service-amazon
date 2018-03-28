@@ -32,6 +32,13 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
     // TODO SSL is required
 
     /**
+     * Endpoint for the service
+     *
+     * @var Zend_Uri_Http
+     */
+    protected $_endpoint;
+
+    /**
      * The HTTP query server
      */
     protected $_sdbEndpoint = 'sdb.amazonaws.com/';
@@ -74,11 +81,12 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
      * @param string|Zend_Uri_Http $endpoint
      * @throws Zend_Service_Amazon_SimpleDb_Exception
      * @throws Zend_Uri_Exception
-     * @return Zend_Service_Amazon_SimpleDb
+     * @return $this
      */
     public function setEndpoint($endpoint)
     {
         if(!($endpoint instanceof Zend_Uri_Http)) {
+            /** @var Zend_Uri_Http $endpoint */
             $endpoint = Zend_Uri::factory($endpoint);
         }
         if(!$endpoint->valid()) {
@@ -438,6 +446,7 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
 
             $request->setUri($this->getEndpoint());
             $request->setMethod(Zend_Http_Client::POST);
+            $params_out = array();
             foreach ($params as $key => $value) {
                 $params_out[] = rawurlencode($key)."=".rawurlencode($value);
             }

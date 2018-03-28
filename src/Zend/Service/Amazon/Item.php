@@ -106,6 +106,26 @@ class Zend_Service_Amazon_Item
      */
     public $ListmaniaLists = array();
 
+    /**
+     * @var string
+     */
+    public $CurrencyCode;
+
+    /**
+     * @var int
+     */
+    public $Amount;
+
+    /**
+     * @var string
+     */
+    public $FormattedPrice;
+
+    /**
+     * @var Zend_Service_Amazon_EditorialReview[]
+     */
+    public $EditorialReviews = array();
+
     protected $_dom;
 
     /**

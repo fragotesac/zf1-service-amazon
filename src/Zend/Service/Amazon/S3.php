@@ -42,7 +42,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
     /**
      * Endpoint for the service
      *
-     * @var Zend_Uri
+     * @var Zend_Uri_Http
      */
     protected $_endpoint;
 
@@ -66,6 +66,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
     public function setEndpoint($endpoint)
     {
         if (!($endpoint instanceof Zend_Uri_Http)) {
+            /** @var Zend_Uri_Http $endpoint */
             $endpoint = Zend_Uri::factory($endpoint);
         }
         if (!$endpoint->valid()) {
@@ -78,7 +79,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
     /**
      * Get current S3 endpoint
      *
-     * @return Zend_Uri
+     * @return Zend_Uri_Http
      */
     public function getEndpoint()
     {
@@ -94,7 +95,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
      */
     public function __construct($accessKey=null, $secretKey=null, $region=null)
     {
-        parent::__construct($accessKey, $secretKey, $region);
+        parent::__construct($accessKey, $secretKey);
 
         $this->setEndpoint('http://'.self::S3_ENDPOINT);
     }

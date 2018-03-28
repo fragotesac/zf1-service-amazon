@@ -74,7 +74,7 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
      */
     public function __construct($accessKey = null, $secretKey = null, $region = null)
     {
-        parent::__construct($accessKey, $secretKey, $region);
+        parent::__construct($accessKey, $secretKey);
 
         if (null !== $region) {
             $this->_setEndpoint($region);
