@@ -27,7 +27,8 @@
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_Amazon_Ec2_Response {
+class Zend_Service_Amazon_Ec2_Response
+{
     /**
      * XML namespace used for EC2 responses.
      */
@@ -93,8 +94,10 @@ class Zend_Service_Amazon_Ec2_Response {
                 $this->_xpath = false;
             } else {
                 $this->_xpath = new DOMXPath($document);
-                $this->_xpath->registerNamespace('ec2',
-                    $this->getNamespace());
+                $this->_xpath->registerNamespace(
+                    'ec2',
+                    $this->getNamespace()
+                );
             }
         }
 
@@ -152,5 +155,4 @@ class Zend_Service_Amazon_Ec2_Response {
     {
         $this->_xmlNamespace = $namespace;
     }
-
 }

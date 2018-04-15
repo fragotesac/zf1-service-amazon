@@ -72,7 +72,7 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
     public function __construct($accessKey, $secretKey)
     {
         parent::__construct($accessKey, $secretKey);
-        $this->setEndpoint("https://" . $this->_sdbEndpoint);
+        $this->setEndpoint('https://' . $this->_sdbEndpoint);
     }
 
     /**
@@ -85,12 +85,12 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
      */
     public function setEndpoint($endpoint)
     {
-        if(!($endpoint instanceof Zend_Uri_Http)) {
+        if (!($endpoint instanceof Zend_Uri_Http)) {
             /** @var Zend_Uri_Http $endpoint */
             $endpoint = Zend_Uri::factory($endpoint);
         }
-        if(!$endpoint->valid()) {
-            throw new Zend_Service_Amazon_SimpleDb_Exception("Invalid endpoint supplied");
+        if (!$endpoint->valid()) {
+            throw new Zend_Service_Amazon_SimpleDb_Exception('Invalid endpoint supplied');
         }
         $this->_endpoint = $endpoint;
         return $this;
@@ -116,7 +116,9 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
      * @return array
      */
     public function getAttributes(
-        $domainName, $itemName, $attributeName = null
+        $domainName,
+        $itemName,
+        $attributeName = null
     ) {
         $params               = array();
         $params['Action']     = 'GetAttributes';
@@ -134,13 +136,13 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
 
         // Return an array of arrays
         $attributes = array();
-        foreach($attributeNodes as $attributeNode) {
+        foreach ($attributeNodes as $attributeNode) {
             $name       = (string)$attributeNode->Name;
             $valueNodes = $attributeNode->Value;
             $data       = null;
             if (is_array($valueNodes) && !empty($valueNodes)) {
                 $data = array();
-                foreach($valueNodes as $valueNode) {
+                foreach ($valueNodes as $valueNode) {
                     $data[] = (string)$valueNode;
                 }
             } elseif (isset($valueNodes)) {
@@ -165,7 +167,10 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
      * @return void
      */
     public function putAttributes(
-        $domainName, $itemName, $attributes, $replace = array()
+        $domainName,
+        $itemName,
+        $attributes,
+        $replace = array()
     ) {
         $params               = array();
         $params['Action']     = 'PutAttributes';
@@ -180,7 +185,7 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
                 $params['Attribute.' . $index . '.Value'] = $value;
 
                 // Check if it should be replaced
-                if(array_key_exists($attributeName, $replace) && $replace[$attributeName]) {
+                if (array_key_exists($attributeName, $replace) && $replace[$attributeName]) {
                     $params['Attribute.' . $index . '.Replace'] = 'true';
                 }
                 $index++;
@@ -201,7 +206,6 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
      */
     public function batchPutAttributes($items, $domainName, array $replace = array())
     {
-
         $params               = array();
         $params['Action']     = 'BatchPutAttributes';
         $params['DomainName'] = $domainName;
@@ -209,12 +213,12 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
         $itemIndex = 0;
         foreach ($items as $name => $attributes) {
             $params['Item.' . $itemIndex . '.ItemName'] = $name;
-            $attributeIndex = 0;
+            $attributeIndex                             = 0;
             foreach ($attributes as $attribute) {
                 // attribute value cannot be array, so when several items are passed
                 // they are treated as separate values with the same attribute name
-                foreach($attribute->getValues() as $value) {
-                    $params['Item.' . $itemIndex . '.Attribute.' . $attributeIndex . '.Name'] = $attribute->getName();
+                foreach ($attribute->getValues() as $value) {
+                    $params['Item.' . $itemIndex . '.Attribute.' . $attributeIndex . '.Name']  = $attribute->getName();
                     $params['Item.' . $itemIndex . '.Attribute.' . $attributeIndex . '.Value'] = $value;
                     if (isset($replace[$name])
                         && isset($replace[$name][$attribute->getName()])
@@ -249,7 +253,7 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
         $attributeIndex = 0;
         foreach ($attributes as $attribute) {
             foreach ($attribute->getValues() as $value) {
-                $params['Attribute.' . $attributeIndex . '.Name'] = $attribute->getName();
+                $params['Attribute.' . $attributeIndex . '.Name']  = $attribute->getName();
                 $params['Attribute.' . $attributeIndex . '.Value'] = $value;
                 $attributeIndex++;
             }
@@ -412,18 +416,18 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
     public function quoteName($name)
     {
         if (preg_match('/^[a-z_$][a-z0-9_$-]*$/i', $name) == false) {
-            throw new Zend_Service_Amazon_SimpleDb_Exception("Invalid name: can contain only alphanumeric characters, \$ and _");
+            throw new Zend_Service_Amazon_SimpleDb_Exception('Invalid name: can contain only alphanumeric characters, $ and _');
         }
         return "`$name`";
     }
 
-   /**
-     * Sends a HTTP request to the SimpleDB service using Zend_Http_Client
-     *
-     * @param array $params         List of parameters to send with the request
-     * @return Zend_Service_Amazon_SimpleDb_Response
-     * @throws Zend_Service_Amazon_SimpleDb_Exception
-     */
+    /**
+      * Sends a HTTP request to the SimpleDB service using Zend_Http_Client
+      *
+      * @param array $params         List of parameters to send with the request
+      * @return Zend_Service_Amazon_SimpleDb_Response
+      * @throws Zend_Service_Amazon_SimpleDb_Exception
+      */
     protected function _sendRequest(array $params = array())
     {
         // UTF-8 encode all parameters and replace '+' characters
@@ -448,7 +452,7 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
             $request->setMethod(Zend_Http_Client::POST);
             $params_out = array();
             foreach ($params as $key => $value) {
-                $params_out[] = rawurlencode($key)."=".rawurlencode($value);
+                $params_out[] = rawurlencode($key) . '=' . rawurlencode($value);
             }
             $request->setRawData(join('&', $params_out), Zend_Http_Client::ENC_URLENCODED);
             $httpResponse = $request->request();
@@ -512,7 +516,7 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
      */
     protected function _signParameters(array $parameters)
     {
-        $data  = "POST\n";
+        $data = "POST\n";
         $data .= $this->getEndpoint()->getHost() . "\n";
         $data .= "/\n";
 
@@ -521,9 +525,9 @@ class Zend_Service_Amazon_SimpleDb extends Zend_Service_Amazon_Abstract
 
         $arrData = array();
         foreach ($parameters as $key => $value) {
-            $value = urlencode($value);
-            $value = str_replace("%7E", "~", $value);
-            $value = str_replace("+", "%20", $value);
+            $value     = urlencode($value);
+            $value     = str_replace('%7E', '~', $value);
+            $value     = str_replace('+', '%20', $value);
             $arrData[] = urlencode($key) . '=' . $value;
         }
 

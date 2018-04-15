@@ -67,7 +67,7 @@ class Zend_Service_Amazon_OnlineTest extends PHPUnit\Framework\TestCase
                                      . 'TestConfiguration.php');
         }
 
-        if(!defined('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ACCESSKEYID') || !defined('TESTS_ZEND_SERVICE_AMAZON_ONLINE_SECRETKEY')) {
+        if (!defined('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ACCESSKEYID') || !defined('TESTS_ZEND_SERVICE_AMAZON_ONLINE_SECRETKEY')) {
             $this->markTestSkipped('Constants AccessKeyId and SecretKey have to be set.');
         }
 

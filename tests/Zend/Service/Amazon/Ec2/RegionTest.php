@@ -51,12 +51,11 @@ class Zend_Service_Amazon_Ec2_RegionTest extends PHPUnit\Framework\TestCase
         $this->Zend_Service_Amazon_Ec2_Region = new Zend_Service_Amazon_Ec2_Region('access_key', 'secret_access_key');
 
         $adapter = new Zend_Http_Client_Adapter_Test();
-        $client = new Zend_Http_Client(null, array(
+        $client  = new Zend_Http_Client(null, array(
             'adapter' => $adapter
         ));
         $this->adapter = $adapter;
         Zend_Service_Amazon_Ec2_Region::setHttpClient($client);
-
     }
 
     /**
@@ -89,15 +88,15 @@ class Zend_Service_Amazon_Ec2_RegionTest extends PHPUnit\Framework\TestCase
                     . "      <regionUrl>us-east-1.ec2.amazonaws.com</regionUrl>\r\n"
                     . "    </item>\r\n"
                     . "  </regionInfo>\r\n"
-                    . "</DescribeRegionsResponse>";
+                    . '</DescribeRegionsResponse>';
         $this->adapter->setResponse($rawHttpResponse);
 
         $response = $this->Zend_Service_Amazon_Ec2_Region->describe('us-east-1');
 
         $arrRegion = array(
             array(
-                'regionName'    => 'us-east-1',
-                'regionUrl'     => 'us-east-1.ec2.amazonaws.com'
+                'regionName' => 'us-east-1',
+                'regionUrl'  => 'us-east-1.ec2.amazonaws.com'
             )
         );
 
@@ -126,23 +125,22 @@ class Zend_Service_Amazon_Ec2_RegionTest extends PHPUnit\Framework\TestCase
                     . "      <regionUrl>us-west-1.ec2.amazonaws.com</regionUrl>\r\n"
                     . "    </item>\r\n"
                     . "  </regionInfo>\r\n"
-                    . "</DescribeRegionsResponse>";
+                    . '</DescribeRegionsResponse>';
         $this->adapter->setResponse($rawHttpResponse);
 
         $response = $this->Zend_Service_Amazon_Ec2_Region->describe(array('us-east-1','us-west-1'));
 
         $arrRegion = array(
             array(
-                'regionName'    => 'us-east-1',
-                'regionUrl'     => 'us-east-1.ec2.amazonaws.com'
+                'regionName' => 'us-east-1',
+                'regionUrl'  => 'us-east-1.ec2.amazonaws.com'
             ),
             array(
-                'regionName'    => 'us-west-1',
-                'regionUrl'     => 'us-west-1.ec2.amazonaws.com'
+                'regionName' => 'us-west-1',
+                'regionUrl'  => 'us-west-1.ec2.amazonaws.com'
             )
         );
 
         $this->assertSame($arrRegion, $response);
     }
 }
-

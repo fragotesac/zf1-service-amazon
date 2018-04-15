@@ -51,13 +51,11 @@ class Zend_Service_Amazon_Ec2_KeypairTest extends PHPUnit\Framework\TestCase
         $this->Zend_Service_Amazon_Ec2_Keypair = new Zend_Service_Amazon_Ec2_Keypair('access_key', 'secret_access_key');
 
         $adapter = new Zend_Http_Client_Adapter_Test();
-        $client = new Zend_Http_Client(null, array(
+        $client  = new Zend_Http_Client(null, array(
             'adapter' => $adapter
         ));
         $this->adapter = $adapter;
         Zend_Service_Amazon_Ec2_Keypair::setHttpClient($client);
-
-
     }
 
     /**
@@ -119,7 +117,7 @@ class Zend_Service_Amazon_Ec2_KeypairTest extends PHPUnit\Framework\TestCase
 . "P8TTvW/6bdPi23ExzxZn7KOdrfclYRph1LHMpAONv/x2xALIf91UB+v5ohy1oDoasL0gij1houRe\r\n"
 . "2ERKKdwz0ZL9SWq6VTdhr/5G994CK72fy5WhyERbDjUIdHaK3M849JJuf8cSrvSb4g==\r\n"
 . "-----END RSA PRIVATE KEY-----</keyMaterial>\r\n"
-                    . "</CreateKeyPairResponse>";
+                    . '</CreateKeyPairResponse>';
         $this->adapter->setResponse($rawHttpResponse);
 
         $response = $this->Zend_Service_Amazon_Ec2_Keypair->create('example-key-name');
@@ -149,7 +147,7 @@ class Zend_Service_Amazon_Ec2_KeypairTest extends PHPUnit\Framework\TestCase
                     . "      <keyFingerprint>1f:51:ae:28:bf:89:e9:d8:1f:25:5d:37:2d:7d:b8:ca:9f:f5:f1:6f</keyFingerprint>\r\n"
                     . "    </item>\r\n"
                     . "  </keySet>\r\n"
-                    . "</DescribeKeyPairsResponse>";
+                    . '</DescribeKeyPairsResponse>';
         $this->adapter->setResponse($rawHttpResponse);
 
         $response = $this->Zend_Service_Amazon_Ec2_Keypair->describe('example-key-name');
@@ -179,23 +177,23 @@ class Zend_Service_Amazon_Ec2_KeypairTest extends PHPUnit\Framework\TestCase
                     . "      <keyFingerprint>25:5d:37:2d:7d:b8:ca:9f:f5:f1:6f:1f:51:ae:28:bf:89:e9:d8:1f</keyFingerprint>\r\n"
                     . "    </item>\r\n"
                     . "  </keySet>\r\n"
-                    . "</DescribeKeyPairsResponse>";
+                    . '</DescribeKeyPairsResponse>';
         $this->adapter->setResponse($rawHttpResponse);
 
         $response = $this->Zend_Service_Amazon_Ec2_Keypair->describe(array('example-key-name', 'zend-test-key'));
 
         $arrKeys = array(
             array(
-                'keyName'       => 'example-key-name',
-                'keyFingerprint'=> '1f:51:ae:28:bf:89:e9:d8:1f:25:5d:37:2d:7d:b8:ca:9f:f5:f1:6f'
+                'keyName'        => 'example-key-name',
+                'keyFingerprint' => '1f:51:ae:28:bf:89:e9:d8:1f:25:5d:37:2d:7d:b8:ca:9f:f5:f1:6f'
             ),
             array(
-                'keyName'       => 'zend-test-key',
-                'keyFingerprint'=> '25:5d:37:2d:7d:b8:ca:9f:f5:f1:6f:1f:51:ae:28:bf:89:e9:d8:1f'
+                'keyName'        => 'zend-test-key',
+                'keyFingerprint' => '25:5d:37:2d:7d:b8:ca:9f:f5:f1:6f:1f:51:ae:28:bf:89:e9:d8:1f'
             )
         );
 
-        foreach($response as $k => $r) {
+        foreach ($response as $k => $r) {
             $this->assertSame($arrKeys[$k], $r);
         }
     }
@@ -220,7 +218,7 @@ class Zend_Service_Amazon_Ec2_KeypairTest extends PHPUnit\Framework\TestCase
                     . "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
                     . "<DeleteKeyPair xmlns=\"http://ec2.amazonaws.com/doc/2009-04-04/\">\r\n"
                     . "  <return>false</return>\r\n"
-                    . "</DeleteKeyPair>";
+                    . '</DeleteKeyPair>';
         $this->adapter->setResponse($rawHttpResponse);
 
         $response = $this->Zend_Service_Amazon_Ec2_Keypair->delete('myfakekeyname');
@@ -242,7 +240,7 @@ class Zend_Service_Amazon_Ec2_KeypairTest extends PHPUnit\Framework\TestCase
                     . "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
                     . "<DeleteKeyPair xmlns=\"http://ec2.amazonaws.com/doc/2009-04-04/\">\r\n"
                     . "  <return>true</return>\r\n"
-                    . "</DeleteKeyPair>";
+                    . '</DeleteKeyPair>';
         $this->adapter->setResponse($rawHttpResponse);
 
         $response = $this->Zend_Service_Amazon_Ec2_Keypair->delete('example-key-name');
@@ -250,4 +248,3 @@ class Zend_Service_Amazon_Ec2_KeypairTest extends PHPUnit\Framework\TestCase
         $this->assertTrue($response);
     }
 }
-

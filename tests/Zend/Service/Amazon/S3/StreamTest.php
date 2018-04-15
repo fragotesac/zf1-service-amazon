@@ -44,19 +44,20 @@ class Zend_Service_Amazon_S3_StreamTest extends PHPUnit\Framework\TestCase
             constant('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ENABLED') &&
             defined('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ACCESSKEYID') &&
             defined('TESTS_ZEND_SERVICE_AMAZON_ONLINE_SECRETKEY'))) {
-                $this->markTestSkipped('Zend_Service_Amazon online tests not enabled with an access key ID in '
+            $this->markTestSkipped('Zend_Service_Amazon online tests not enabled with an access key ID in '
                                          . 'TestConfiguration.php');
         }
 
-        $this->_amazon = new Zend_Service_Amazon_S3(constant('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ACCESSKEYID'),
+        $this->_amazon = new Zend_Service_Amazon_S3(
+            constant('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ACCESSKEYID'),
                                                     constant('TESTS_ZEND_SERVICE_AMAZON_ONLINE_SECRETKEY')
                                                     );
-        $this->_nosuchbucket = "nonexistingbucketnamewhichnobodyshoulduse";
+        $this->_nosuchbucket            = 'nonexistingbucketnamewhichnobodyshoulduse';
         $this->_httpClientAdapterSocket = new Zend_Http_Client_Adapter_Socket();
 
-        $this->_bucket = constant('TESTS_ZEND_SERVICE_AMAZON_S3_BUCKET');
-        $this->_bucketName = "s3://".$this->_bucket;
-        $this->_fileName = $this->_bucketName."/sample_file.txt";
+        $this->_bucket     = constant('TESTS_ZEND_SERVICE_AMAZON_S3_BUCKET');
+        $this->_bucketName = 's3://' . $this->_bucket;
+        $this->_fileName   = $this->_bucketName . '/sample_file.txt';
 
         $this->_amazon->getHttpClient()
                       ->setAdapter($this->_httpClientAdapterSocket);
@@ -76,8 +77,8 @@ class Zend_Service_Amazon_S3_StreamTest extends PHPUnit\Framework\TestCase
     {
         $this->_amazon->unregisterStreamWrapper();
         $buckets = $this->_amazon->getBuckets();
-        foreach($buckets as $bucket) {
-            if(substr($bucket, 0, strlen($this->_bucket)) != $this->_bucket) {
+        foreach ($buckets as $bucket) {
+            if (substr($bucket, 0, strlen($this->_bucket)) != $this->_bucket) {
                 continue;
             }
             $this->_amazon->cleanBucket($bucket);
@@ -166,7 +167,7 @@ class Zend_Service_Amazon_S3_StreamTest extends PHPUnit\Framework\TestCase
         $f = fopen($this->_fileName, 'r');
         fseek($f, 1000);
         while (!feof($f)) {
-            $chunk =  fread($f, 1000);
+            $chunk = fread($f, 1000);
             $new_data .= $chunk;
             $this->assertEquals(strlen($chunk), 1000);
         }
@@ -189,11 +190,11 @@ class Zend_Service_Amazon_S3_StreamTest extends PHPUnit\Framework\TestCase
      */
     public function testGetBucketList()
     {
-        $buckets = array($this->_bucket.'zf-test1', $this->_bucket.'zf-test2', $this->_bucket.'zf-test3');
+        $buckets = array($this->_bucket . 'zf-test1', $this->_bucket . 'zf-test2', $this->_bucket . 'zf-test3');
 
         // Create the buckets
         foreach ($buckets as $bucket) {
-            $result = mkdir('s3://'.$bucket);
+            $result = mkdir('s3://' . $bucket);
             $this->assertTrue($result);
         }
 
@@ -213,7 +214,7 @@ class Zend_Service_Amazon_S3_StreamTest extends PHPUnit\Framework\TestCase
 
         // Remove the buckets
         foreach ($buckets as $bucket) {
-            $result = rmdir('s3://'.$bucket);
+            $result = rmdir('s3://' . $bucket);
             $this->assertTrue($result);
         }
     }
@@ -232,7 +233,7 @@ class Zend_Service_Amazon_S3_StreamTest extends PHPUnit\Framework\TestCase
         $this->assertDirectoryExists($this->_bucketName);
 
         $data = str_repeat('x', 10000);
-        $len = strlen($data);
+        $len  = strlen($data);
 
         // Write to an object
         $size = file_put_contents($this->_fileName, $data);

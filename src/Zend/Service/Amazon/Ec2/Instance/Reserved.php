@@ -39,14 +39,14 @@ class Zend_Service_Amazon_Ec2_Instance_Reserved extends Zend_Service_Amazon_Ec2_
      */
     public function describeInstances($instanceId)
     {
-        $params = array();
+        $params           = array();
         $params['Action'] = 'DescribeReservedInstances';
 
-        if(is_array($instanceId) && !empty($instanceId)) {
-            foreach($instanceId as $k=>$name) {
-                $params['ReservedInstancesId.' . ($k+1)] = $name;
+        if (is_array($instanceId) && !empty($instanceId)) {
+            foreach ($instanceId as $k => $name) {
+                $params['ReservedInstancesId.' . ($k + 1)] = $name;
             }
-        } elseif($instanceId) {
+        } elseif ($instanceId) {
             $params['ReservedInstancesId.1'] = $instanceId;
         }
 
@@ -56,17 +56,17 @@ class Zend_Service_Amazon_Ec2_Instance_Reserved extends Zend_Service_Amazon_Ec2_
         $items = $xpath->query('//ec2:reservedInstancesSet/ec2:item');
 
         $return = array();
-        foreach($items as $item) {
-            $i = array();
+        foreach ($items as $item) {
+            $i                        = array();
             $i['reservedInstancesId'] = $xpath->evaluate('string(ec2:reservedInstancesId/text())', $item);
-            $i['instanceType'] = $xpath->evaluate('string(ec2:instanceType/text())', $item);
-            $i['availabilityZone'] = $xpath->evaluate('string(ec2:availabilityZone/text())', $item);
-            $i['duration'] = $xpath->evaluate('string(ec2:duration/text())', $item);
-            $i['fixedPrice'] = $xpath->evaluate('string(ec2:fixedPrice/text())', $item);
-            $i['usagePrice'] = $xpath->evaluate('string(ec2:usagePrice/text())', $item);
-            $i['productDescription'] = $xpath->evaluate('string(ec2:productDescription/text())', $item);
-            $i['instanceCount'] = $xpath->evaluate('string(ec2:instanceCount/text())', $item);
-            $i['state'] = $xpath->evaluate('string(ec2:state/text())', $item);
+            $i['instanceType']        = $xpath->evaluate('string(ec2:instanceType/text())', $item);
+            $i['availabilityZone']    = $xpath->evaluate('string(ec2:availabilityZone/text())', $item);
+            $i['duration']            = $xpath->evaluate('string(ec2:duration/text())', $item);
+            $i['fixedPrice']          = $xpath->evaluate('string(ec2:fixedPrice/text())', $item);
+            $i['usagePrice']          = $xpath->evaluate('string(ec2:usagePrice/text())', $item);
+            $i['productDescription']  = $xpath->evaluate('string(ec2:productDescription/text())', $item);
+            $i['instanceCount']       = $xpath->evaluate('string(ec2:instanceCount/text())', $item);
+            $i['state']               = $xpath->evaluate('string(ec2:state/text())', $item);
 
             $return[] = $i;
             unset($i);
@@ -85,7 +85,7 @@ class Zend_Service_Amazon_Ec2_Instance_Reserved extends Zend_Service_Amazon_Ec2_
      */
     public function describeOfferings()
     {
-        $params = array();
+        $params           = array();
         $params['Action'] = 'DescribeReservedInstancesOfferings';
 
         $response = $this->sendRequest($params);
@@ -94,15 +94,15 @@ class Zend_Service_Amazon_Ec2_Instance_Reserved extends Zend_Service_Amazon_Ec2_
         $items = $xpath->query('//ec2:reservedInstancesOfferingsSet/ec2:item');
 
         $return = array();
-        foreach($items as $item) {
-            $i = array();
+        foreach ($items as $item) {
+            $i                                = array();
             $i['reservedInstancesOfferingId'] = $xpath->evaluate('string(ec2:reservedInstancesOfferingId/text())', $item);
-            $i['instanceType'] = $xpath->evaluate('string(ec2:instanceType/text())', $item);
-            $i['availabilityZone'] = $xpath->evaluate('string(ec2:availabilityZone/text())', $item);
-            $i['duration'] = $xpath->evaluate('string(ec2:duration/text())', $item);
-            $i['fixedPrice'] = $xpath->evaluate('string(ec2:fixedPrice/text())', $item);
-            $i['usagePrice'] = $xpath->evaluate('string(ec2:usagePrice/text())', $item);
-            $i['productDescription'] = $xpath->evaluate('string(ec2:productDescription/text())', $item);
+            $i['instanceType']                = $xpath->evaluate('string(ec2:instanceType/text())', $item);
+            $i['availabilityZone']            = $xpath->evaluate('string(ec2:availabilityZone/text())', $item);
+            $i['duration']                    = $xpath->evaluate('string(ec2:duration/text())', $item);
+            $i['fixedPrice']                  = $xpath->evaluate('string(ec2:fixedPrice/text())', $item);
+            $i['usagePrice']                  = $xpath->evaluate('string(ec2:usagePrice/text())', $item);
+            $i['productDescription']          = $xpath->evaluate('string(ec2:productDescription/text())', $item);
 
             $return[] = $i;
             unset($i);
@@ -123,14 +123,14 @@ class Zend_Service_Amazon_Ec2_Instance_Reserved extends Zend_Service_Amazon_Ec2_
      */
     public function purchaseOffering($offeringId, $intanceCount = 1)
     {
-        $params = array();
-        $params['Action'] = 'PurchaseReservedInstancesOffering';
-        $params['OfferingId.1'] = $offeringId;
+        $params                    = array();
+        $params['Action']          = 'PurchaseReservedInstancesOffering';
+        $params['OfferingId.1']    = $offeringId;
         $params['instanceCount.1'] = intval($intanceCount);
 
         $response = $this->sendRequest($params);
 
-        $xpath = $response->getXPath();
+        $xpath               = $response->getXPath();
         $reservedInstancesId = $xpath->evaluate('string(//ec2:reservedInstancesId/text())');
 
         return $reservedInstancesId;

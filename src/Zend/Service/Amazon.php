@@ -77,7 +77,7 @@ class Zend_Service_Amazon
      */
     public function __construct($appId, $countryCode = 'US', $secretKey = null)
     {
-        $this->appId = (string) $appId;
+        $this->appId      = (string) $appId;
         $this->_secretKey = $secretKey;
 
         $countryCode = (string) $countryCode;
@@ -103,7 +103,7 @@ class Zend_Service_Amazon
         $client->setUri($this->_baseUri);
 
         $defaultOptions = array('ResponseGroup' => 'Small');
-        $options = $this->_prepareOptions('ItemSearch', $options, $defaultOptions);
+        $options        = $this->_prepareOptions('ItemSearch', $options, $defaultOptions);
         $client->getHttpClient()->resetParameters();
         $response = $client->restGet('/onca/xml', $options);
 
@@ -135,10 +135,10 @@ class Zend_Service_Amazon
         $client->setUri($this->_baseUri);
         $client->getHttpClient()->resetParameters();
 
-        $defaultOptions = array('ResponseGroup' => 'Small');
+        $defaultOptions    = array('ResponseGroup' => 'Small');
         $options['ItemId'] = (string) $asin;
-        $options = $this->_prepareOptions('ItemLookup', $options, $defaultOptions);
-        $response = $client->restGet('/onca/xml', $options);
+        $options           = $this->_prepareOptions('ItemLookup', $options, $defaultOptions);
+        $response          = $client->restGet('/onca/xml', $options);
 
         if ($response->isError()) {
             throw new Zend_Service_Exception(
@@ -168,7 +168,7 @@ class Zend_Service_Amazon
      */
     public function getRestClient()
     {
-        if($this->_rest === null) {
+        if ($this->_rest === null) {
             $this->_rest = new Zend_Rest_Client();
         }
         return $this->_rest;
@@ -207,15 +207,16 @@ class Zend_Service_Amazon
             $responseGroup = explode(',', $options['ResponseGroup']);
 
             if (!in_array('Request', $responseGroup)) {
-                $responseGroup[] = 'Request';
+                $responseGroup[]          = 'Request';
                 $options['ResponseGroup'] = implode(',', $responseGroup);
             }
         }
 
         $options = array_merge($defaultOptions, $options);
 
-        if($this->_secretKey !== null) {
-            $options['Timestamp'] = gmdate("Y-m-d\TH:i:s\Z");;
+        if ($this->_secretKey !== null) {
+            $options['Timestamp'] = gmdate("Y-m-d\TH:i:s\Z");
+            ;
             ksort($options);
             $options['Signature'] = self::computeSignature($this->_baseUri, $this->_secretKey, $options);
         }
@@ -231,9 +232,8 @@ class Zend_Service_Amazon
      * @param  array $options
      * @return string
      */
-    static public function computeSignature($baseUri, $secretKey, array $options)
+    public static function computeSignature($baseUri, $secretKey, array $options)
     {
-
         $signature = self::buildRawSignature($baseUri, $options);
         return base64_encode(
             Zend_Crypt_Hmac::compute($secretKey, 'sha256', $signature, Zend_Crypt_Hmac::BINARY)
@@ -247,17 +247,18 @@ class Zend_Service_Amazon
      * @param  array $options
      * @return string
      */
-    static public function buildRawSignature($baseUri, $options)
+    public static function buildRawSignature($baseUri, $options)
     {
         ksort($options);
         $params = array();
-        foreach($options AS $k => $v) {
-            $params[] = $k."=".rawurlencode($v);
+        foreach ($options as $k => $v) {
+            $params[] = $k . '=' . rawurlencode($v);
         }
 
-        return sprintf("GET\n%s\n/onca/xml\n%s",
+        return sprintf(
+            "GET\n%s\n/onca/xml\n%s",
             str_replace('http://', '', $baseUri),
-            implode("&", $params)
+            implode('&', $params)
         );
     }
 
@@ -275,10 +276,10 @@ class Zend_Service_Amazon
         $xpath->registerNamespace('az', 'http://webservices.amazon.com/AWSECommerceService/2011-08-01');
 
         if ($xpath->query('//az:Error')->length >= 1) {
-            $code = $xpath->query('//az:Error/az:Code/text()')->item(0)->data;
+            $code    = $xpath->query('//az:Error/az:Code/text()')->item(0)->data;
             $message = $xpath->query('//az:Error/az:Message/text()')->item(0)->data;
 
-            switch($code) {
+            switch ($code) {
                 case 'AWS.ECommerceService.NoExactMatches':
                     break;
                 default:

@@ -63,7 +63,7 @@ class Zend_Service_Amazon_AbstractTest extends PHPUnit\Framework\TestCase
     {
         try {
             $class = new TestAmamzonAbstract('TestAccessKey', 'TestSecretKey');
-        } catch(Zend_Service_Amazon_Exception $zsae) {
+        } catch (Zend_Service_Amazon_Exception $zsae) {
             $this->fail('Exception should be thrown when no keys are passed in.');
         }
     }
@@ -106,6 +106,4 @@ class TestAmamzonAbstract extends Zend_Service_Amazon_Abstract
     {
         return $this->_secretKey;
     }
-
 }
-

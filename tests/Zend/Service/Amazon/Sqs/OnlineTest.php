@@ -85,7 +85,7 @@ class Zend_Service_Amazon_Sqs_OnlineTest extends PHPUnit\Framework\TestCase
     {
         try {
             $queue_url = $this->_amazon->create($this->_queue_name, 45);
-            $timeout = $this->_amazon->getAttribute($queue_url, 'VisibilityTimeout');
+            $timeout   = $this->_amazon->getAttribute($queue_url, 'VisibilityTimeout');
             $this->assertEquals(45, $timeout, 'VisibilityTimeout attribute is not 45');
 
             $test_msg = 'this is a test';

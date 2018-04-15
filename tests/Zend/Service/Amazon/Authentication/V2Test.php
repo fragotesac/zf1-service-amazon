@@ -72,11 +72,11 @@ class Zend_Service_Amazon_Authentication_V2Test extends PHPUnit\Framework\TestCa
      */
     public function testGenerateEc2PostSignature()
     {
-        $url = "https://ec2.amazonaws.com/";
-        $params = array();
-        $params['Action'] = "DescribeImages";
-        $params['ImageId.1'] = "ami-2bb65342";
-        $params['Timestamp'] = "2009-11-11T13:52:38Z";
+        $url                 = 'https://ec2.amazonaws.com/';
+        $params              = array();
+        $params['Action']    = 'DescribeImages';
+        $params['ImageId.1'] = 'ami-2bb65342';
+        $params['Timestamp'] = '2009-11-11T13:52:38Z';
 
         $ret = $this->Zend_Service_Amazon_Authentication_V2->generateSignature($url, $params);
 
@@ -86,12 +86,12 @@ class Zend_Service_Amazon_Authentication_V2Test extends PHPUnit\Framework\TestCa
 
     public function testGenerateSqsGetSignature()
     {
-        $url = "https://queue.amazonaws.com/770098461991/queue2";
-        $params = array();
-        $params['Action'] = "SetQueueAttributes";
-        $params['Attribute.Name'] = "VisibilityTimeout";
-        $params['Attribute.Value'] = "90";
-        $params['Timestamp'] = "2009-11-11T13:52:38Z";
+        $url                       = 'https://queue.amazonaws.com/770098461991/queue2';
+        $params                    = array();
+        $params['Action']          = 'SetQueueAttributes';
+        $params['Attribute.Name']  = 'VisibilityTimeout';
+        $params['Attribute.Value'] = '90';
+        $params['Timestamp']       = '2009-11-11T13:52:38Z';
 
         $this->Zend_Service_Amazon_Authentication_V2->setHttpMethod('GET');
         $ret = $this->Zend_Service_Amazon_Authentication_V2->generateSignature($url, $params);
@@ -99,5 +99,4 @@ class Zend_Service_Amazon_Authentication_V2Test extends PHPUnit\Framework\TestCa
         $this->assertEquals('YSw7HXDqokM/A6DhLz8kG+sd+oD5eMjqx3a02A0+GkE=', $params['Signature']);
         $this->assertEquals(file_get_contents(dirname(__FILE__) . '/_files/sqs_v2_get_return.txt'), $ret);
     }
-
 }

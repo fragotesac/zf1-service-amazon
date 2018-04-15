@@ -51,12 +51,11 @@ class Zend_Service_Amazon_Ec2_AvailabilityzonesTest extends PHPUnit\Framework\Te
         $this->Zend_Service_Amazon_Ec2_Availabilityzones = new Zend_Service_Amazon_Ec2_Availabilityzones('access_key', 'secret_access_key');
 
         $adapter = new Zend_Http_Client_Adapter_Test();
-        $client = new Zend_Http_Client(null, array(
+        $client  = new Zend_Http_Client(null, array(
             'adapter' => $adapter
         ));
         $this->adapter = $adapter;
         Zend_Service_Amazon_Ec2_Availabilityzones::setHttpClient($client);
-
     }
 
     /**
@@ -89,7 +88,7 @@ class Zend_Service_Amazon_Ec2_AvailabilityzonesTest extends PHPUnit\Framework\Te
                     . "      <zoneState>available</zoneState>\r\n"
                     . "    </item>\r\n"
                     . "  </availabilityZoneInfo>\r\n"
-                    . "</DescribeAvailabilityZonesResponse>";
+                    . '</DescribeAvailabilityZonesResponse>';
         $this->adapter->setResponse($rawHttpResponse);
 
         $response = $this->Zend_Service_Amazon_Ec2_Availabilityzones->describe('us-east-1a');
@@ -124,7 +123,7 @@ class Zend_Service_Amazon_Ec2_AvailabilityzonesTest extends PHPUnit\Framework\Te
                     . "      <zoneState>available</zoneState>\r\n"
                     . "    </item>\r\n"
                     . "  </availabilityZoneInfo>\r\n"
-                    . "</DescribeAvailabilityZonesResponse>";
+                    . '</DescribeAvailabilityZonesResponse>';
         $this->adapter->setResponse($rawHttpResponse);
 
         $response = $this->Zend_Service_Amazon_Ec2_Availabilityzones->describe();
@@ -137,4 +136,3 @@ class Zend_Service_Amazon_Ec2_AvailabilityzonesTest extends PHPUnit\Framework\Te
         }
     }
 }
-

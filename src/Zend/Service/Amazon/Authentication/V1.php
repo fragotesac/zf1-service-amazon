@@ -49,8 +49,8 @@ class Zend_Service_Amazon_Authentication_V1 extends Zend_Service_Amazon_Authenti
         $parameters['AWSAccessKeyId']   = $this->_accessKey;
         $parameters['SignatureVersion'] = $this->_signatureVersion;
         $parameters['Version']          = $this->_apiVersion;
-        if(!isset($parameters['Timestamp'])) {
-            $parameters['Timestamp']    = gmdate('Y-m-d\TH:i:s\Z', time()+10);
+        if (!isset($parameters['Timestamp'])) {
+            $parameters['Timestamp'] = gmdate('Y-m-d\TH:i:s\Z', time() + 10);
         }
 
         $data = $this->_signParameters($url, $parameters);
@@ -85,7 +85,7 @@ class Zend_Service_Amazon_Authentication_V1 extends Zend_Service_Amazon_Authenti
         uksort($paramaters, 'strcasecmp');
         unset($paramaters['Signature']);
 
-        foreach($paramaters as $key => $value) {
+        foreach ($paramaters as $key => $value) {
             $data .= $key . $value;
         }
 

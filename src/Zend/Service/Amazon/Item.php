@@ -155,8 +155,8 @@ class Zend_Service_Amazon_Item
         }
 
         if ($xpath->query('./az:ItemAttributes/az:ListPrice', $dom)->length >= 1) {
-            $this->CurrencyCode = (string) $xpath->query('./az:ItemAttributes/az:ListPrice/az:CurrencyCode/text()', $dom)->item(0)->data;
-            $this->Amount = (int) $xpath->query('./az:ItemAttributes/az:ListPrice/az:Amount/text()', $dom)->item(0)->data;
+            $this->CurrencyCode   = (string) $xpath->query('./az:ItemAttributes/az:ListPrice/az:CurrencyCode/text()', $dom)->item(0)->data;
+            $this->Amount         = (int) $xpath->query('./az:ItemAttributes/az:ListPrice/az:Amount/text()', $dom)->item(0)->data;
             $this->FormattedPrice = (string) $xpath->query('./az:ItemAttributes/az:ListPrice/az:FormattedPrice/text()', $dom)->item(0)->data;
         }
 
@@ -193,7 +193,7 @@ class Zend_Service_Amazon_Item
                 $this->CustomerReviews[] = new Zend_Service_Amazon_CustomerReview($review);
             }
             $this->AverageRating = (float) $xpath->query('./az:CustomerReviews/az:AverageRating/text()', $dom)->item(0)->data;
-            $this->TotalReviews = (int) $xpath->query('./az:CustomerReviews/az:TotalReviews/text()', $dom)->item(0)->data;
+            $this->TotalReviews  = (int) $xpath->query('./az:CustomerReviews/az:TotalReviews/text()', $dom)->item(0)->data;
         }
 
         $result = $xpath->query('./az:EditorialReviews/az:*', $dom);
@@ -226,13 +226,13 @@ class Zend_Service_Amazon_Item
                     $this->Tracks[] = (string) $t->data;
                 }
             }
-        } else if ($result->length == 1) {
+        } elseif ($result->length == 1) {
             foreach ($xpath->query('./*/text()', $result->item(0)) as $t) {
                 $this->Tracks[] = (string) $t->data;
             }
         }
 
-        $result = $xpath->query('./az:Offers', $dom);
+        $result        = $xpath->query('./az:Offers', $dom);
         $resultSummary = $xpath->query('./az:OfferSummary', $dom);
         if ($result->length > 1 || $resultSummary->length == 1) {
             $this->Offers = new Zend_Service_Amazon_OfferSet($dom);

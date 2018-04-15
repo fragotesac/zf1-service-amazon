@@ -28,5 +28,4 @@
  */
 class Zend_Service_Amazon_Authentication_Exception extends Zend_Service_Amazon_Exception
 {
-
 }

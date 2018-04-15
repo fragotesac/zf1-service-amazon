@@ -73,17 +73,17 @@ abstract class Zend_Service_Amazon_Abstract extends Zend_Service_Abstract
      * @param  string $secretKey       Override the default Secret Key
      * @return void
      */
-    public function __construct($accessKey=null, $secretKey=null)
+    public function __construct($accessKey = null, $secretKey = null)
     {
-        if(!$accessKey) {
+        if (!$accessKey) {
             $accessKey = self::$_defaultAccessKey;
         }
-        if(!$secretKey) {
+        if (!$secretKey) {
             $secretKey = self::$_defaultSecretKey;
         }
 
-        if(!$accessKey || !$secretKey) {
-            throw new Zend_Service_Amazon_Exception("AWS keys were not supplied");
+        if (!$accessKey || !$secretKey) {
+            throw new Zend_Service_Amazon_Exception('AWS keys were not supplied');
         }
         $this->_accessKey = $accessKey;
         $this->_secretKey = $secretKey;

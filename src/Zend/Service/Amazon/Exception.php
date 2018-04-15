@@ -27,4 +27,5 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Amazon_Exception extends Zend_Service_Exception
-{}
+{
+}

@@ -93,6 +93,4 @@ class Zend_Service_Amazon_Ec2_Ec2Test extends PHPUnit\Framework\TestCase
         $object = Zend_Service_Amazon_Ec2::factory('security', 'access_key', 'secret_access_key');
         $this->assertTrue($object instanceof Zend_Service_Amazon_Ec2_Securitygroups);
     }
-
 }
-

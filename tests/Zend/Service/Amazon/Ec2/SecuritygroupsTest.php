@@ -51,12 +51,11 @@ class Zend_Service_Amazon_Ec2_SecuritygroupsTest extends PHPUnit\Framework\TestC
         $this->Zend_Service_Amazon_Ec2_Securitygroups = new Zend_Service_Amazon_Ec2_Securitygroups('access_key', 'secret_access_key');
 
         $adapter = new Zend_Http_Client_Adapter_Test();
-        $client = new Zend_Http_Client(null, array(
+        $client  = new Zend_Http_Client(null, array(
             'adapter' => $adapter
         ));
         $this->adapter = $adapter;
         Zend_Service_Amazon_Ec2_Securitygroups::setHttpClient($client);
-
     }
 
     /**
@@ -93,7 +92,6 @@ class Zend_Service_Amazon_Ec2_SecuritygroupsTest extends PHPUnit\Framework\TestC
 
         $return = $this->Zend_Service_Amazon_Ec2_Securitygroups->authorizeIp('MyGroup', 'tcp', '80', '80', '0.0.0.0/0');
         $this->assertTrue($return);
-
     }
 
     public function testAuthorizeRangeOfPorts()
@@ -115,7 +113,6 @@ class Zend_Service_Amazon_Ec2_SecuritygroupsTest extends PHPUnit\Framework\TestC
 
         $return = $this->Zend_Service_Amazon_Ec2_Securitygroups->authorizeIp('MyGroup', 'tcp', '6000', '7000', '0.0.0.0/0');
         $this->assertTrue($return);
-
     }
 
     public function testAuthorizeSecurityGroupName()
@@ -137,7 +134,6 @@ class Zend_Service_Amazon_Ec2_SecuritygroupsTest extends PHPUnit\Framework\TestC
 
         $return = $this->Zend_Service_Amazon_Ec2_Securitygroups->authorizeGroup('MyGroup', 'groupname', '15333848');
         $this->assertTrue($return);
-
     }
 
     /**
@@ -145,7 +141,6 @@ class Zend_Service_Amazon_Ec2_SecuritygroupsTest extends PHPUnit\Framework\TestC
      */
     public function testCreate()
     {
-
         $rawHttpResponse = "HTTP/1.1 200 OK\r\n"
                     . "Date: Fri, 24 Oct 2008 17:24:52 GMT\r\n"
                     . "Server: hi\r\n"
@@ -164,7 +159,6 @@ class Zend_Service_Amazon_Ec2_SecuritygroupsTest extends PHPUnit\Framework\TestC
         $return = $this->Zend_Service_Amazon_Ec2_Securitygroups->create('MyGroup', 'My Security Grup');
 
         $this->assertTrue($return);
-
     }
 
     /**
@@ -190,7 +184,6 @@ class Zend_Service_Amazon_Ec2_SecuritygroupsTest extends PHPUnit\Framework\TestC
         $return = $this->Zend_Service_Amazon_Ec2_Securitygroups->delete('MyGroup');
 
         $this->assertTrue($return);
-
     }
 
     /**
@@ -255,29 +248,29 @@ class Zend_Service_Amazon_Ec2_SecuritygroupsTest extends PHPUnit\Framework\TestC
 
         $arrGroups = array(
                 array(
-                    'ownerId'   => 'UYY3TLBUXIEON5NQVUUX6OMPWBZIQNFM',
-                    'groupName' => 'WebServers',
+                    'ownerId'          => 'UYY3TLBUXIEON5NQVUUX6OMPWBZIQNFM',
+                    'groupName'        => 'WebServers',
                     'groupDescription' => 'Web',
-                    'ipPermissions' => array(0 => array(
+                    'ipPermissions'    => array(0 => array(
                         'ipProtocol' => 'tcp',
-                        'fromPort'  => '80',
-                        'toPort'    => '80',
-                        'ipRanges'  => '0.0.0.0/0'
+                        'fromPort'   => '80',
+                        'toPort'     => '80',
+                        'ipRanges'   => '0.0.0.0/0'
                     ))
                 ),
                 array(
-                    'ownerId'   => 'UYY3TLBUXIEON5NQVUUX6OMPWBZIQNFM',
-                    'groupName' => 'RangedPortsBySource',
+                    'ownerId'          => 'UYY3TLBUXIEON5NQVUUX6OMPWBZIQNFM',
+                    'groupName'        => 'RangedPortsBySource',
                     'groupDescription' => 'A',
-                    'ipPermissions' => array(0 => array(
+                    'ipPermissions'    => array(0 => array(
                         'ipProtocol' => 'tcp',
-                        'fromPort'  => '6000',
-                        'toPort'    => '7000',
-                        'ipRanges'  => '0.0.0.0/0'
+                        'fromPort'   => '6000',
+                        'toPort'     => '7000',
+                        'ipRanges'   => '0.0.0.0/0'
                     ))
                 )
             );
-        foreach($return as $k => $r) {
+        foreach ($return as $k => $r) {
             $this->assertSame($arrGroups[$k], $r);
         }
     }
@@ -323,18 +316,18 @@ class Zend_Service_Amazon_Ec2_SecuritygroupsTest extends PHPUnit\Framework\TestC
 
         $arrGroups = array(
                 array(
-                    'ownerId'   => 'UYY3TLBUXIEON5NQVUUX6OMPWBZIQNFM',
-                    'groupName' => 'WebServers',
+                    'ownerId'          => 'UYY3TLBUXIEON5NQVUUX6OMPWBZIQNFM',
+                    'groupName'        => 'WebServers',
                     'groupDescription' => 'Web',
-                    'ipPermissions' => array(0 => array(
+                    'ipPermissions'    => array(0 => array(
                         'ipProtocol' => 'tcp',
-                        'fromPort'  => '80',
-                        'toPort'    => '80',
-                        'ipRanges'  => '0.0.0.0/0'
+                        'fromPort'   => '80',
+                        'toPort'     => '80',
+                        'ipRanges'   => '0.0.0.0/0'
                     ))
                 )
             );
-        foreach($return as $k => $r) {
+        foreach ($return as $k => $r) {
             $this->assertSame($arrGroups[$k], $r);
         }
     }
@@ -383,21 +376,21 @@ class Zend_Service_Amazon_Ec2_SecuritygroupsTest extends PHPUnit\Framework\TestC
 
         $arrGroups = array(
                 array(
-                    'ownerId'   => 'UYY3TLBUXIEON5NQVUUX6OMPWBZIQNFM',
-                    'groupName' => 'WebServers',
+                    'ownerId'          => 'UYY3TLBUXIEON5NQVUUX6OMPWBZIQNFM',
+                    'groupName'        => 'WebServers',
                     'groupDescription' => 'Web',
-                    'ipPermissions' => array(0 => array(
+                    'ipPermissions'    => array(0 => array(
                         'ipProtocol' => 'tcp',
-                        'fromPort'  => '80',
-                        'toPort'    => '80',
-                        'ipRanges'  => array(
+                        'fromPort'   => '80',
+                        'toPort'     => '80',
+                        'ipRanges'   => array(
                             '0.0.0.0/0',
                             '1.1.1.1/0'
                             )
                     ))
                 )
             );
-        foreach($return as $k => $r) {
+        foreach ($return as $k => $r) {
             $this->assertSame($arrGroups[$k], $r);
         }
     }
@@ -424,7 +417,6 @@ class Zend_Service_Amazon_Ec2_SecuritygroupsTest extends PHPUnit\Framework\TestC
 
         $return = $this->Zend_Service_Amazon_Ec2_Securitygroups->revokeIp('MyGroup', 'tcp', '80', '80', '0.0.0.0/0');
         $this->assertTrue($return);
-
     }
 
     public function testRevokePortRange()
@@ -446,7 +438,6 @@ class Zend_Service_Amazon_Ec2_SecuritygroupsTest extends PHPUnit\Framework\TestC
 
         $return = $this->Zend_Service_Amazon_Ec2_Securitygroups->revokeIp('MyGroup', 'tcp', '6000', '7000', '0.0.0.0/0');
         $this->assertTrue($return);
-
     }
 
 
@@ -469,9 +460,5 @@ class Zend_Service_Amazon_Ec2_SecuritygroupsTest extends PHPUnit\Framework\TestC
 
         $return = $this->Zend_Service_Amazon_Ec2_Securitygroups->revokeGroup('MyGroup', 'groupname', '15333848');
         $this->assertTrue($return);
-
     }
-
 }
-
-

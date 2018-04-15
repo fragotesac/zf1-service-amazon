@@ -39,13 +39,13 @@ class Zend_Service_Amazon_Ec2_Elasticip extends Zend_Service_Amazon_Ec2_Abstract
      */
     public function allocate()
     {
-        $params = array();
+        $params           = array();
         $params['Action'] = 'AllocateAddress';
 
         $response = $this->sendRequest($params);
 
         $xpath = $response->getXPath();
-        $ip = $xpath->evaluate('string(//ec2:publicIp/text())');
+        $ip    = $xpath->evaluate('string(//ec2:publicIp/text())');
 
         return $ip;
     }
@@ -58,27 +58,27 @@ class Zend_Service_Amazon_Ec2_Elasticip extends Zend_Service_Amazon_Ec2_Abstract
      */
     public function describe($publicIp = null)
     {
-        $params = array();
+        $params           = array();
         $params['Action'] = 'DescribeAddresses';
 
-        if(is_array($publicIp) && !empty($publicIp)) {
-            foreach($publicIp as $k=>$name) {
-                $params['PublicIp.' . ($k+1)] = $name;
+        if (is_array($publicIp) && !empty($publicIp)) {
+            foreach ($publicIp as $k => $name) {
+                $params['PublicIp.' . ($k + 1)] = $name;
             }
-        } elseif($publicIp) {
+        } elseif ($publicIp) {
             $params['PublicIp.1'] = $publicIp;
         }
 
         $response = $this->sendRequest($params);
 
-        $xpath  = $response->getXPath();
-        $nodes  = $xpath->query('//ec2:item');
+        $xpath = $response->getXPath();
+        $nodes = $xpath->query('//ec2:item');
 
         $return = array();
         foreach ($nodes as $k => $node) {
-            $item = array();
-            $item['publicIp']  = $xpath->evaluate('string(ec2:publicIp/text())', $node);
-            $item['instanceId']   = $xpath->evaluate('string(ec2:instanceId/text())', $node);
+            $item               = array();
+            $item['publicIp']   = $xpath->evaluate('string(ec2:publicIp/text())', $node);
+            $item['instanceId'] = $xpath->evaluate('string(ec2:instanceId/text())', $node);
 
             $return[] = $item;
             unset($item);
@@ -95,16 +95,16 @@ class Zend_Service_Amazon_Ec2_Elasticip extends Zend_Service_Amazon_Ec2_Abstract
      */
     public function release($publicIp)
     {
-        $params = array();
-        $params['Action'] = 'ReleaseAddress';
+        $params             = array();
+        $params['Action']   = 'ReleaseAddress';
         $params['PublicIp'] = $publicIp;
 
         $response = $this->sendRequest($params);
-        $xpath = $response->getXPath();
+        $xpath    = $response->getXPath();
 
         $return = $xpath->evaluate('string(//ec2:return/text())');
 
-        return ($return === "true");
+        return ($return === 'true');
     }
 
     /**
@@ -116,17 +116,17 @@ class Zend_Service_Amazon_Ec2_Elasticip extends Zend_Service_Amazon_Ec2_Abstract
      */
     public function associate($instanceId, $publicIp)
     {
-        $params = array();
-        $params['Action'] = 'AssociateAddress';
-        $params['PublicIp'] = $publicIp;
+        $params               = array();
+        $params['Action']     = 'AssociateAddress';
+        $params['PublicIp']   = $publicIp;
         $params['InstanceId'] = $instanceId;
 
         $response = $this->sendRequest($params);
-        $xpath = $response->getXPath();
+        $xpath    = $response->getXPath();
 
         $return = $xpath->evaluate('string(//ec2:return/text())');
 
-        return ($return === "true");
+        return ($return === 'true');
     }
 
     /**
@@ -138,16 +138,15 @@ class Zend_Service_Amazon_Ec2_Elasticip extends Zend_Service_Amazon_Ec2_Abstract
      */
     public function disassocate($publicIp)
     {
-        $params = array();
-        $params['Action'] = 'DisssociateAddress';
+        $params             = array();
+        $params['Action']   = 'DisssociateAddress';
         $params['PublicIp'] = $publicIp;
 
         $response = $this->sendRequest($params);
-        $xpath = $response->getXPath();
+        $xpath    = $response->getXPath();
 
         $return = $xpath->evaluate('string(//ec2:return/text())');
 
-        return ($return === "true");
+        return ($return === 'true');
     }
-
 }

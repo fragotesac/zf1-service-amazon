@@ -48,16 +48,16 @@ class Zend_Service_Amazon_Ec2_Securitygroups extends Zend_Service_Amazon_Ec2_Abs
      */
     public function create($name, $description)
     {
-        $params = array();
-        $params['Action'] = 'CreateSecurityGroup';
-        $params['GroupName'] = $name;
+        $params                     = array();
+        $params['Action']           = 'CreateSecurityGroup';
+        $params['GroupName']        = $name;
         $params['GroupDescription'] = $description;
 
         $response = $this->sendRequest($params);
-        $xpath = $response->getXPath();
+        $xpath    = $response->getXPath();
         $success  = $xpath->evaluate('string(//ec2:return/text())');
 
-        return ($success === "true");
+        return ($success === 'true');
     }
 
     /**
@@ -72,47 +72,47 @@ class Zend_Service_Amazon_Ec2_Securitygroups extends Zend_Service_Amazon_Ec2_Abs
      */
     public function describe($name = null)
     {
-        $params = array();
+        $params           = array();
         $params['Action'] = 'DescribeSecurityGroups';
-        if(is_array($name) && !empty($name)) {
-            foreach($name as $k=>$name) {
-                $params['GroupName.' . ($k+1)] = $name;
+        if (is_array($name) && !empty($name)) {
+            foreach ($name as $k => $name) {
+                $params['GroupName.' . ($k + 1)] = $name;
             }
-        } elseif($name) {
+        } elseif ($name) {
             $params['GroupName.1'] = $name;
         }
 
         $response = $this->sendRequest($params);
-        $xpath = $response->getXPath();
+        $xpath    = $response->getXPath();
 
         $return = array();
 
         $nodes = $xpath->query('//ec2:securityGroupInfo/ec2:item');
 
-        foreach($nodes as $node) {
+        foreach ($nodes as $node) {
             $item = array();
 
-            $item['ownerId'] = $xpath->evaluate('string(ec2:ownerId/text())', $node);
-            $item['groupName'] = $xpath->evaluate('string(ec2:groupName/text())', $node);
+            $item['ownerId']          = $xpath->evaluate('string(ec2:ownerId/text())', $node);
+            $item['groupName']        = $xpath->evaluate('string(ec2:groupName/text())', $node);
             $item['groupDescription'] = $xpath->evaluate('string(ec2:groupDescription/text())', $node);
 
             $ip_nodes = $xpath->query('ec2:ipPermissions/ec2:item', $node);
 
-            foreach($ip_nodes as $ip_node) {
+            foreach ($ip_nodes as $ip_node) {
                 $sItem = array();
 
                 $sItem['ipProtocol'] = $xpath->evaluate('string(ec2:ipProtocol/text())', $ip_node);
-                $sItem['fromPort'] = $xpath->evaluate('string(ec2:fromPort/text())', $ip_node);
-                $sItem['toPort'] = $xpath->evaluate('string(ec2:toPort/text())', $ip_node);
+                $sItem['fromPort']   = $xpath->evaluate('string(ec2:fromPort/text())', $ip_node);
+                $sItem['toPort']     = $xpath->evaluate('string(ec2:toPort/text())', $ip_node);
 
                 $ips = $xpath->query('ec2:ipRanges/ec2:item', $ip_node);
 
                 $sItem['ipRanges'] = array();
-                foreach($ips as $ip) {
+                foreach ($ips as $ip) {
                     $sItem['ipRanges'][] = $xpath->evaluate('string(ec2:cidrIp/text())', $ip);
                 }
 
-                if(count($sItem['ipRanges']) == 1) {
+                if (count($sItem['ipRanges']) == 1) {
                     $sItem['ipRanges'] = $sItem['ipRanges'][0];
                 }
 
@@ -142,15 +142,15 @@ class Zend_Service_Amazon_Ec2_Securitygroups extends Zend_Service_Amazon_Ec2_Abs
      */
     public function delete($name)
     {
-        $params = array();
-        $params['Action'] = 'DeleteSecurityGroup';
+        $params              = array();
+        $params['Action']    = 'DeleteSecurityGroup';
         $params['GroupName'] = $name;
 
         $response = $this->sendRequest($params);
-        $xpath = $response->getXPath();
+        $xpath    = $response->getXPath();
         $success  = $xpath->evaluate('string(//ec2:return/text())');
 
-        return ($success === "true");
+        return ($success === 'true');
     }
 
     /**
@@ -176,20 +176,19 @@ class Zend_Service_Amazon_Ec2_Securitygroups extends Zend_Service_Amazon_Ec2_Abs
      */
     public function authorizeIp($name, $ipProtocol, $fromPort, $toPort, $cidrIp)
     {
-        $params = array();
-        $params['Action'] = 'AuthorizeSecurityGroupIngress';
-        $params['GroupName'] = $name;
+        $params               = array();
+        $params['Action']     = 'AuthorizeSecurityGroupIngress';
+        $params['GroupName']  = $name;
         $params['IpProtocol'] = $ipProtocol;
-        $params['FromPort'] = $fromPort;
-        $params['ToPort'] = $toPort;
-        $params['CidrIp'] = $cidrIp;
+        $params['FromPort']   = $fromPort;
+        $params['ToPort']     = $toPort;
+        $params['CidrIp']     = $cidrIp;
 
         $response = $this->sendRequest($params);
-        $xpath = $response->getXPath();
+        $xpath    = $response->getXPath();
         $success  = $xpath->evaluate('string(//ec2:return/text())');
 
-        return ($success === "true");
-
+        return ($success === 'true');
     }
 
     /**
@@ -208,19 +207,19 @@ class Zend_Service_Amazon_Ec2_Securitygroups extends Zend_Service_Amazon_Ec2_Abs
      */
     public function authorizeGroup($name, $groupName, $ownerId)
     {
-        $params = array();
-        $params['Action'] = 'AuthorizeSecurityGroupIngress';
-        $params['GroupName'] = $name;
-        $params['SourceSecurityGroupName'] = $groupName;
+        $params                               = array();
+        $params['Action']                     = 'AuthorizeSecurityGroupIngress';
+        $params['GroupName']                  = $name;
+        $params['SourceSecurityGroupName']    = $groupName;
         $params['SourceSecurityGroupOwnerId'] = $ownerId;
 
 
         $response = $this->sendRequest($params);
-        $xpath = $response->getXPath();
+        $xpath    = $response->getXPath();
         $success  = $xpath->evaluate('string(//ec2:return/text())');
 
 
-        return ($success === "true");
+        return ($success === 'true');
     }
 
     /**
@@ -247,19 +246,19 @@ class Zend_Service_Amazon_Ec2_Securitygroups extends Zend_Service_Amazon_Ec2_Abs
      */
     public function revokeIp($name, $ipProtocol, $fromPort, $toPort, $cidrIp)
     {
-        $params = array();
-        $params['Action'] = 'RevokeSecurityGroupIngress';
-        $params['GroupName'] = $name;
+        $params               = array();
+        $params['Action']     = 'RevokeSecurityGroupIngress';
+        $params['GroupName']  = $name;
         $params['IpProtocol'] = $ipProtocol;
-        $params['FromPort'] = $fromPort;
-        $params['ToPort'] = $toPort;
-        $params['CidrIp'] = $cidrIp;
+        $params['FromPort']   = $fromPort;
+        $params['ToPort']     = $toPort;
+        $params['CidrIp']     = $cidrIp;
 
         $response = $this->sendRequest($params);
-        $xpath = $response->getXPath();
+        $xpath    = $response->getXPath();
         $success  = $xpath->evaluate('string(//ec2:return/text())');
 
-        return ($success === "true");
+        return ($success === 'true');
     }
 
     /**
@@ -279,18 +278,18 @@ class Zend_Service_Amazon_Ec2_Securitygroups extends Zend_Service_Amazon_Ec2_Abs
      */
     public function revokeGroup($name, $groupName, $ownerId)
     {
-        $params = array();
-        $params['Action'] = 'RevokeSecurityGroupIngress';
-        $params['GroupName'] = $name;
-        $params['SourceSecurityGroupName'] = $groupName;
+        $params                               = array();
+        $params['Action']                     = 'RevokeSecurityGroupIngress';
+        $params['GroupName']                  = $name;
+        $params['SourceSecurityGroupName']    = $groupName;
         $params['SourceSecurityGroupOwnerId'] = $ownerId;
 
 
         $response = $this->sendRequest($params);
-        $xpath = $response->getXPath();
+        $xpath    = $response->getXPath();
         $success  = $xpath->evaluate('string(//ec2:return/text())');
 
 
-        return ($success === "true");
+        return ($success === 'true');
     }
 }
