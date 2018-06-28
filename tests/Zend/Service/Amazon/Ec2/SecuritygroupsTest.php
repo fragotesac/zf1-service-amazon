@@ -244,7 +244,7 @@ class Zend_Service_Amazon_Ec2_SecuritygroupsTest extends PHPUnit\Framework\TestC
 
         $return = $this->Zend_Service_Amazon_Ec2_Securitygroups->describe(array('WebServers','RangedPortsBySource'));
 
-        $this->assertEquals(2, count($return));
+        $this->assertCount(2, $return);
 
         $arrGroups = array(
                 array(
@@ -312,7 +312,7 @@ class Zend_Service_Amazon_Ec2_SecuritygroupsTest extends PHPUnit\Framework\TestC
 
         $return = $this->Zend_Service_Amazon_Ec2_Securitygroups->describe('WebServers');
 
-        $this->assertEquals(1, count($return));
+        $this->assertCount(1, $return);
 
         $arrGroups = array(
                 array(
@@ -372,7 +372,7 @@ class Zend_Service_Amazon_Ec2_SecuritygroupsTest extends PHPUnit\Framework\TestC
 
         $return = $this->Zend_Service_Amazon_Ec2_Securitygroups->describe('WebServers');
 
-        $this->assertEquals(1, count($return));
+        $this->assertCount(1, $return);
 
         $arrGroups = array(
                 array(

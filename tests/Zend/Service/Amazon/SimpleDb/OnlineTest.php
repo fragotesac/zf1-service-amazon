@@ -141,14 +141,14 @@ class Zend_Service_Amazon_SimpleDb_OnlineTest extends PHPUnit\Framework\TestCase
 
             // One attribute
             $results = $this->request('getAttributes', array($domainName, $itemName, $attributeName1));
-            $this->assertEquals(1, count($results));
+            $this->assertCount(1, $results);
             $attribute = current($results);
             $this->assertEquals($attributeName1, $attribute->getName());
             $this->assertEquals($attributeValue1, current($attribute->getValues()));
 
             // Multiple attributes
             $results = $this->request('getAttributes', array($domainName, $itemName));
-            $this->assertEquals(2, count($results));
+            $this->assertCount(2, $results);
             $this->assertArrayHasKey($attributeName1, $results);
             $this->assertArrayHasKey($attributeName2, $results);
             $this->assertEquals($attributeValue1, current($results[$attributeName1]->getValues()));
@@ -182,7 +182,7 @@ class Zend_Service_Amazon_SimpleDb_OnlineTest extends PHPUnit\Framework\TestCase
 
             // Multiple attributes
             $results = $this->request('getAttributes', array($domainName, $itemName));
-            $this->assertEquals(2, count($results));
+            $this->assertCount(2, $results);
             $this->assertArrayHasKey($attributeName1, $results);
             $this->assertArrayHasKey($attributeName2, $results);
             $this->assertEquals($attributes[$attributeName1], $results[$attributeName1]);
@@ -242,16 +242,16 @@ class Zend_Service_Amazon_SimpleDb_OnlineTest extends PHPUnit\Framework\TestCase
             $this->assertEquals($attributeValue1, current($result[$attributeName1]->getValues()));
             $result = $this->request('getAttributes', array($domainName, $itemName2, $attributeName4));
             $this->assertArrayHasKey($attributeName4, $result);
-            $this->assertEquals(2, count($result[$attributeName4]->getValues()));
+            $this->assertCount(2, $result[$attributeName4]->getValues());
             $result = $this->request('getAttributes', array($domainName, $itemName2));
-            $this->assertEquals(2, count($result));
+            $this->assertCount(2, $result);
             $this->assertArrayHasKey($attributeName3, $result);
             $this->assertEquals($attributeName3, $result[$attributeName3]->getName());
-            $this->assertEquals(1, count($result[$attributeName3]));
+            $this->assertCount(1, $result[$attributeName3]);
             $this->assertEquals($attributeValue3, current($result[$attributeName3]->getValues()));
             $this->assertArrayHasKey($attributeName4, $result);
             $this->assertEquals($attributeName4, $result[$attributeName4]->getName());
-            $this->assertEquals(2, count($result[$attributeName4]->getValues()));
+            $this->assertCount(2, $result[$attributeName4]->getValues());
             $this->assertEquals(array($attributeValue4, $attributeValue5), $result[$attributeName4]->getValues());
 
             // Test replace
@@ -313,7 +313,7 @@ class Zend_Service_Amazon_SimpleDb_OnlineTest extends PHPUnit\Framework\TestCase
             $this->request('putAttributes', array($domainName, $itemName, $attributes));
 
             $results = $this->request('getAttributes', array($domainName, $itemName));
-            $this->assertEquals(4, count($results));
+            $this->assertCount(4, $results);
             $this->assertArrayHasKey($attributeName1, $results);
             $this->assertArrayHasKey($attributeName2, $results);
             $this->assertArrayHasKey($attributeName3, $results);
@@ -326,7 +326,7 @@ class Zend_Service_Amazon_SimpleDb_OnlineTest extends PHPUnit\Framework\TestCase
             $this->request('deleteAttributes', array($domainName, $itemName, array($attributes[0])));
 
             $results = $this->request('getAttributes', array($domainName, $itemName));
-            $this->assertEquals(3, count($results));
+            $this->assertCount(3, $results);
             $this->assertArrayHasKey($attributeName2, $results);
             $this->assertArrayHasKey($attributeName3, $results);
             $this->assertArrayHasKey($attributeName4, $results);
@@ -337,7 +337,7 @@ class Zend_Service_Amazon_SimpleDb_OnlineTest extends PHPUnit\Framework\TestCase
             $this->request('deleteAttributes', array($domainName, $itemName, array($attributes[1], $attributes[2])));
 
             $results = $this->request('getAttributes', array($domainName, $itemName));
-            $this->assertEquals(1, count($results));
+            $this->assertCount(1, $results);
             $this->assertArrayHasKey($attributeName4, $results);
             $this->assertEquals($attributeValue4, current($results[$attributeName4]->getValues()));
 
@@ -345,7 +345,7 @@ class Zend_Service_Amazon_SimpleDb_OnlineTest extends PHPUnit\Framework\TestCase
             $this->request('deleteAttributes', array($domainName, $itemName, array($attributes[3])));
 
             $results = $this->request('getAttributes', array($domainName, $itemName));
-            $this->assertEquals(0, count($results));
+            $this->assertCount(0, $results);
 
             $this->request('deleteDomain', array($domainName));
         } catch (Exception $e) {
@@ -366,7 +366,7 @@ class Zend_Service_Amazon_SimpleDb_OnlineTest extends PHPUnit\Framework\TestCase
             }
 
             $page = $this->request('listDomains', array(3));
-            $this->assertEquals(3, count($page->getData()));
+            $this->assertCount(3, $page->getData());
             // Amazon returns an empty page as the last page :/
             $isLast = $page->isLast();
             if (!$isLast) {
@@ -388,18 +388,18 @@ class Zend_Service_Amazon_SimpleDb_OnlineTest extends PHPUnit\Framework\TestCase
                     }
                 }
             }
-            $this->assertEquals(1, count($this->request('listDomains', array(1, $page->getToken()))));
+            $this->assertCount(1, $this->request('listDomains', array(1, $page->getToken())));
 
             $page = $this->request('listDomains', array(4));
-            $this->assertEquals(3, count($page->getData()));
+            $this->assertCount(3, $page->getData());
             $this->assertTrue($page->isLast());
 
             $page = $this->request('listDomains', array(2));
-            $this->assertEquals(2, count($page->getData()));
+            $this->assertCount(2, $page->getData());
             $this->assertFalse($page->isLast());
 
             $nextPage = $this->request('listDomains', array(100, $page->getToken()));
-            $this->assertEquals(1, count($nextPage->getData()));
+            $this->assertCount(1, $nextPage->getData());
             // Amazon returns an empty page as the last page :/
             $this->assertTrue($nextPage->isLast());
 

@@ -483,7 +483,7 @@ class Zend_Service_Amazon_S3_OnlineTest extends PHPUnit\Framework\TestCase
         $this->_amazon->putObject('testgetobjectparams1/zftest2', 'testdata');
 
         $list = $this->_amazon->getObjectsByBucket('testgetobjectparams1', array('max-keys' => 1));
-        $this->assertEquals(1, count($list));
+        $this->assertCount(1, $list);
 
         $this->_amazon->removeObject('testgetobjectparams1/zftest1', 'testdata');
         $this->_amazon->removeObject('testgetobjectparams1/zftest2', 'testdata');

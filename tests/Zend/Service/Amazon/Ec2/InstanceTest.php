@@ -238,7 +238,7 @@ class Zend_Service_Amazon_Ec2_InstanceTest extends PHPUnit\Framework\TestCase
 
         $return = $this->Zend_Service_Amazon_Ec2_Instance->describe('i-28a64341', true);
 
-        $this->assertEquals(0, count($return['instances']));
+        $this->assertCount(0, $return['instances']);
     }
 
     public function testDescribeByImageId()
@@ -411,7 +411,7 @@ class Zend_Service_Amazon_Ec2_InstanceTest extends PHPUnit\Framework\TestCase
 
         $return = $this->Zend_Service_Amazon_Ec2_Instance->run($arrStart);
 
-        $this->assertEquals(3, count($return['instances']));
+        $this->assertCount(3, $return['instances']);
         $this->assertEquals('495219933132', $return['ownerId']);
 
         $arrInstanceIds = array('i-2ba64342', 'i-2bc64242', 'i-2be64332');
@@ -515,7 +515,7 @@ class Zend_Service_Amazon_Ec2_InstanceTest extends PHPUnit\Framework\TestCase
 
         $return = $this->Zend_Service_Amazon_Ec2_Instance->terminate('i-28a64341');
 
-        $this->assertEquals(1, count($return));
+        $this->assertCount(1, $return);
 
         foreach ($return as $r) {
             $this->assertEquals('i-28a64341', $r['instanceId']);
@@ -565,7 +565,7 @@ class Zend_Service_Amazon_Ec2_InstanceTest extends PHPUnit\Framework\TestCase
 
         $return = $this->Zend_Service_Amazon_Ec2_Instance->terminate($arrInstanceIds);
 
-        $this->assertEquals(2, count($return));
+        $this->assertCount(2, $return);
 
         foreach ($return as $k => $r) {
             $this->assertEquals($arrInstanceIds[$k], $r['instanceId']);
