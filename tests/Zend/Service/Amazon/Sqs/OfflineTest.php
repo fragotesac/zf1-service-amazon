@@ -78,7 +78,7 @@ class Zend_Service_Amazon_Sqs_OfflineTest extends PHPUnit\Framework\TestCase
             'Zend_Service_Amazon_Sqs_Exception'
          );
         $this->expectExceptionMessage(
-             'Empty region specified.'
+            'Empty region specified.'
         );
         $this->_amazon->setEndpoint('');
     }

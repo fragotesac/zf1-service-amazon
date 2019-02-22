@@ -1,14 +1,18 @@
 parameters:
+    level: 4
+    paths:
+        - ./
     excludes_analyse:
         - %rootDir%/../../../tests/*
         - %rootDir%/../../../vendor/*
     ignoreErrors:
         - '#Constructor of class Zend_Service_Amazon_S3 has an unused parameter \$region\.#'
         # The Xml_Security::scan method can return both DOMDocument or SimpleXMLElement, it depends on what is passed in as the second parameter
-        - '#Property Zend_Service_Amazon_.+::\$_document \(DOMDocument\|false\|null\) does not accept DOMDocument\|false\|SimpleXMLElement\.#'
-        - '#Method Zend_Service_Amazon_.+::getDocument\(\) should return DOMDocument\|false but returns DOMDocument\|false\|SimpleXMLElement\.#'
-        - '#Method Zend_Service_Amazon_.+::getSimpleXMLDocument\(\) should return false\|SimpleXMLElement but returns DOMDocument\|false\|SimpleXMLElement\.#'
-        - '#Casting to .+ something that.s already .+\.#'
         - '#Strict comparison using === between string and null will always evaluate to false\.#'
-        - '#Strict comparison using !== between string and null will always evaluate to true\.#'
-        - '#Strict comparison using === between null and string will always evaluate to false\.#'
+        - '#Access to an undefined property DOMNode::\$data\.#'
+        -
+            message: '#Strict comparison using === between null and .asin. will always evaluate to false\.#'
+            path: %currentWorkingDirectory%/src/Zend/Service/Amazon/Query.php
+        -
+            message: '#Negated boolean expression is always false\.#'
+            path: %currentWorkingDirectory%/src/Zend/Service/Amazon/S3/Stream.php

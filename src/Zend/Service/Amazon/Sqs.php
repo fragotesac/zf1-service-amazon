@@ -489,7 +489,7 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
      *    values before constructing this string. Do not use any separator
      *    characters when appending strings.
      *
-     * @param  string $queue_url  Queue URL
+     * @param  string|null $queue_url  Queue URL
      * @param  array  $paramaters the parameters for which to get the signature.
      *
      * @return string the signed data.
