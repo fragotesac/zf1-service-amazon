@@ -188,8 +188,6 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
                 return (string) $result->CreateQueueResult->QueueUrl;
             }
         } while ($retry);
-
-        return false;
     }
 
     /**

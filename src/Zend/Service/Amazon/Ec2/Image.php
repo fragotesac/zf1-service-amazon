@@ -243,7 +243,6 @@ class Zend_Service_Amazon_Ec2_Image extends Zend_Service_Amazon_Ec2_Abstract
                 break;
             default:
                 throw new Zend_Service_Amazon_Ec2_Exception('Invalid Attribute Passed In.  Valid Image Attributes are launchPermission and productCode.');
-                break;
         }
 
         $response = $this->sendRequest($params);
