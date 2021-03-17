@@ -52,7 +52,7 @@ class Zend_Service_Amazon_S3_OnlineTest extends PHPUnit\Framework\TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         if (!(defined('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ENABLED') &&
             constant('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ENABLED') &&
@@ -115,7 +115,7 @@ class Zend_Service_Amazon_S3_OnlineTest extends PHPUnit\Framework\TestCase
         $response = $this->_amazon->getObjectStream($this->_bucket . '/zftest');
 
         $this->assertTrue($response instanceof Zend_Http_Response_Stream, 'The test did not return stream response');
-        $this->assertInternalType('resource', $response->getStream(), 'Request does not contain stream!');
+        $this->assertIsResource($response->getStream(), 'Request does not contain stream!');
 
         $stream_name = $response->getStreamName();
 
@@ -139,7 +139,7 @@ class Zend_Service_Amazon_S3_OnlineTest extends PHPUnit\Framework\TestCase
         $response = $this->_amazon->getObjectStream($this->_bucket . '/zftest', $outfile);
 
         $this->assertTrue($response instanceof Zend_Http_Response_Stream, 'The test did not return stream response');
-        $this->assertInternalType('resource', $response->getStream(), 'Request does not contain stream!');
+        $this->assertIsResource($response->getStream(), 'Request does not contain stream!');
 
         $this->assertEquals($outfile, $response->getStreamName());
 
@@ -516,7 +516,7 @@ class Zend_Service_Amazon_S3_OnlineTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($response['objects'][0], 'test-folder/test1');
         $this->assertEquals($response['prefixes'][0], 'test-folder/test2-folder/');
     }
-    public function tearDown()
+    public function tearDown(): void
     {
         if ($this->_amazon !== null) {
             unset($this->_amazon->debug);

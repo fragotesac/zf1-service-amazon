@@ -44,7 +44,7 @@ class Zend_Service_Amazon_Ec2_KeypairTest extends PHPUnit\Framework\TestCase
     /**
      * Prepares the environment before running a test.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -61,7 +61,7 @@ class Zend_Service_Amazon_Ec2_KeypairTest extends PHPUnit\Framework\TestCase
     /**
      * Cleans up the environment after running a test.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->adapter);
 
@@ -122,7 +122,7 @@ class Zend_Service_Amazon_Ec2_KeypairTest extends PHPUnit\Framework\TestCase
 
         $response = $this->Zend_Service_Amazon_Ec2_Keypair->create('example-key-name');
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
 
         $this->assertEquals('example-key-name', $response['keyName']);
         $this->assertEquals('1f:51:ae:28:bf:89:e9:d8:1f:25:5d:37:2d:7d:b8:ca:9f:f5:f1:6f', $response['keyFingerprint']);
@@ -222,7 +222,7 @@ class Zend_Service_Amazon_Ec2_KeypairTest extends PHPUnit\Framework\TestCase
         $this->adapter->setResponse($rawHttpResponse);
 
         $response = $this->Zend_Service_Amazon_Ec2_Keypair->delete('myfakekeyname');
-        $this->assertInternalType('bool', $response);
+        $this->assertIsBool($response);
         $this->assertFalse($response);
     }
 
@@ -244,7 +244,7 @@ class Zend_Service_Amazon_Ec2_KeypairTest extends PHPUnit\Framework\TestCase
         $this->adapter->setResponse($rawHttpResponse);
 
         $response = $this->Zend_Service_Amazon_Ec2_Keypair->delete('example-key-name');
-        $this->assertInternalType('bool', $response);
+        $this->assertIsBool($response);
         $this->assertTrue($response);
     }
 }

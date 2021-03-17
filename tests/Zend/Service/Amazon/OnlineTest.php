@@ -58,7 +58,7 @@ class Zend_Service_Amazon_OnlineTest extends PHPUnit\Framework\TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         if (!(defined('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ENABLED') &&
             constant('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ENABLED') &&

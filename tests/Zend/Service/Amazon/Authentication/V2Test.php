@@ -41,7 +41,7 @@ class Zend_Service_Amazon_Authentication_V2Test extends PHPUnit\Framework\TestCa
     /**
      * Prepares the environment before running a test.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!(defined('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ENABLED')
             && constant('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ENABLED')
@@ -60,7 +60,7 @@ class Zend_Service_Amazon_Authentication_V2Test extends PHPUnit\Framework\TestCa
     /**
      * Cleans up the environment after running a test.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->Zend_Service_Amazon_Authentication_V2 = null;
 

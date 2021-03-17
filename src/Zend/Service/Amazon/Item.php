@@ -57,17 +57,17 @@ class Zend_Service_Amazon_Item
     public $AverageRating;
 
     /**
-     * @var string
+     * @var Zend_Service_Amazon_Image
      */
     public $SmallImage;
 
     /**
-     * @var string
+     * @var Zend_Service_Amazon_Image
      */
     public $MediumImage;
 
     /**
-     * @var string
+     * @var Zend_Service_Amazon_Image
      */
     public $LargeImage;
 

@@ -52,7 +52,7 @@ class Zend_Service_Amazon_Sqs_OnlineTest extends PHPUnit\Framework\TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         if (!(defined('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ENABLED')
             && constant('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ENABLED')
@@ -116,7 +116,7 @@ class Zend_Service_Amazon_Sqs_OnlineTest extends PHPUnit\Framework\TestCase
      *
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->_amazon);
     }
@@ -125,7 +125,7 @@ class Zend_Service_Amazon_Sqs_OnlineTest extends PHPUnit\Framework\TestCase
 
 class Zend_Service_Amazon_Sqs_OnlineTest_Skip extends PHPUnit\Framework\TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->markTestSkipped(
             'Zend_Service_Amazon_Sqs online tests not enabled with an access key ID in '

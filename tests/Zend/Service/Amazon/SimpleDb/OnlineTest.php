@@ -66,7 +66,7 @@ class Zend_Service_Amazon_SimpleDb_OnlineTest extends PHPUnit\Framework\TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         if (!(defined('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ENABLED')
             && constant('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ENABLED')
@@ -425,7 +425,7 @@ class Zend_Service_Amazon_SimpleDb_OnlineTest extends PHPUnit\Framework\TestCase
         $this->request('createDomain', array($domainName));
         try {
             $metadata = $this->request('domainMetadata', array($domainName));
-            $this->assertInternalType('array', $metadata);
+            $this->assertIsArray($metadata);
             $this->assertGreaterThan(0, count($metadata));
             $this->assertArrayHasKey('ItemCount', $metadata);
             $this->assertEquals(0, (int)$metadata['ItemCount']);
@@ -494,7 +494,7 @@ class Zend_Service_Amazon_SimpleDb_OnlineTest extends PHPUnit\Framework\TestCase
      *
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
 
         // $this->request('deleteDomain', array($this->_testDomainNamePrefix));

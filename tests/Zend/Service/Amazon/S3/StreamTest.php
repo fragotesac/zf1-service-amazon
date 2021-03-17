@@ -38,7 +38,7 @@ class Zend_Service_Amazon_S3_StreamTest extends PHPUnit\Framework\TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         if (!(defined('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ENABLED') &&
             constant('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ENABLED') &&
@@ -73,7 +73,7 @@ class Zend_Service_Amazon_S3_StreamTest extends PHPUnit\Framework\TestCase
      *
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->_amazon->unregisterStreamWrapper();
         $buckets = $this->_amazon->getBuckets();
@@ -265,7 +265,7 @@ class Zend_Service_Amazon_S3_StreamTest extends PHPUnit\Framework\TestCase
  */
 class Zend_Service_Amazon_S3_StreamTest_Skip extends PHPUnit\Framework\TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->markTestSkipped('Zend_Service_Amazon_S3 online tests not enabled with an access key ID and '
                              . ' secret key ID in TestConfiguration.php');

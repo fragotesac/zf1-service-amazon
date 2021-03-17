@@ -44,7 +44,7 @@ class Zend_Service_Amazon_Ec2_AvailabilityzonesTest extends PHPUnit\Framework\Te
     /**
      * Prepares the environment before running a test.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -61,7 +61,7 @@ class Zend_Service_Amazon_Ec2_AvailabilityzonesTest extends PHPUnit\Framework\Te
     /**
      * Cleans up the environment after running a test.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->adapter);
 
@@ -92,7 +92,7 @@ class Zend_Service_Amazon_Ec2_AvailabilityzonesTest extends PHPUnit\Framework\Te
         $this->adapter->setResponse($rawHttpResponse);
 
         $response = $this->Zend_Service_Amazon_Ec2_Availabilityzones->describe('us-east-1a');
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
         $this->assertEquals('us-east-1a', $response[0]['zoneName']);
         $this->assertEquals('available', $response[0]['zoneState']);
     }
@@ -128,7 +128,7 @@ class Zend_Service_Amazon_Ec2_AvailabilityzonesTest extends PHPUnit\Framework\Te
 
         $response = $this->Zend_Service_Amazon_Ec2_Availabilityzones->describe();
 
-        $this->assertInternalType('array', $response);
+        $this->assertIsArray($response);
 
         $arrExpected = array('us-east-1a', 'us-east-1b', 'us-east-1c');
         foreach ($response as $k => $node) {
