@@ -85,11 +85,11 @@ abstract class Zend_Service_Amazon_Ec2_Abstract extends Zend_Service_Amazon_Abst
     {
         if (!$region) {
             $region = self::$_defaultRegion;
-        } else {
-            // make rue the region is valid
-            if (!empty($region) && !in_array(strtolower($region), self::$_validEc2Regions, true)) {
-                throw new Zend_Service_Amazon_Exception('Invalid Amazon Ec2 Region');
-            }
+        }
+
+        // make sure the region is valid
+        if (!empty($region) && !in_array(strtolower($region), self::$_validEc2Regions, true)) {
+            throw new Zend_Service_Amazon_Exception('Invalid Amazon Ec2 Region');
         }
 
         $this->_region = $region;

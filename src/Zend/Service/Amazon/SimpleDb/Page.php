@@ -83,7 +83,7 @@ class Zend_Service_Amazon_SimpleDb_Page
      */
     public function setToken($token)
     {
-        $this->_token = (trim($token) === '') ? null : $token;
+        $this->_token = (trim($token ?? '') === '') ? null : $token;
     }
 
     /**

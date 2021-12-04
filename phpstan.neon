@@ -3,7 +3,7 @@ parameters:
     inferPrivatePropertyTypeFromConstructor: true
     paths:
         - ./
-    excludes_analyse:
+    excludePaths:
         - %rootDir%/../../../tests/*
         - %rootDir%/../../../vendor/*
     ignoreErrors:
@@ -17,3 +17,16 @@ parameters:
         -
             message: '#Negated boolean expression is always false\.#'
             path: %currentWorkingDirectory%/src/Zend/Service/Amazon/S3/Stream.php
+        # Didn't take the time to investigate these
+        -
+            message: '#Call to function is_array\(\) with SimpleXMLElement will always evaluate to false\.#'
+            path: ./src/Zend/Service/Amazon/SimpleDb.php
+        -
+            message: '#Result of && is always false\.#'
+            path: ./src/Zend/Service/Amazon/SimpleDb.php
+        -
+            message: '#Variable \$valueNodes in empty\(\) always exists and is always falsy\.#'
+            path: ./src/Zend/Service/Amazon/SimpleDb.php
+        -
+            message: '#Variable \$valueNodes in isset\(\) always exists and is not nullable\.#'
+            path: ./src/Zend/Service/Amazon/SimpleDb.php

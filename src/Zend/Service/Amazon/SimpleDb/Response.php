@@ -57,20 +57,6 @@ class Zend_Service_Amazon_SimpleDb_Response
     private $_xpath = null;
 
     /**
-     * Last error code
-     *
-     * @var integer
-     */
-    private $_errorCode = 0;
-
-    /**
-     * Last error message
-     *
-     * @var string
-     */
-    private $_errorMessage = '';
-
-    /**
      * Creates a new high-level SimpleDB response object
      *
      * @param  Zend_Http_Response $httpResponse the HTTP response.
