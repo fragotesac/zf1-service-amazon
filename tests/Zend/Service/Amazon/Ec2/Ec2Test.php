@@ -60,37 +60,37 @@ class Zend_Service_Amazon_Ec2_Ec2Test extends PHPUnit\Framework\TestCase
     public function testFactoryReturnsKeyPairObject()
     {
         $object = Zend_Service_Amazon_Ec2::factory('keypair', 'access_key', 'secret_access_key');
-        $this->assertTrue($object instanceof Zend_Service_Amazon_Ec2_Keypair);
+        $this->assertInstanceOf(Zend_Service_Amazon_Ec2_Keypair::class, $object);
     }
 
     public function testFactoryReturnsElasticIpObject()
     {
         $object = Zend_Service_Amazon_Ec2::factory('elasticip', 'access_key', 'secret_access_key');
-        $this->assertTrue($object instanceof Zend_Service_Amazon_Ec2_Elasticip);
+        $this->assertInstanceOf(Zend_Service_Amazon_Ec2_Elasticip::class, $object);
     }
 
 
     public function testFactoryReturnsEbsObject()
     {
         $object = Zend_Service_Amazon_Ec2::factory('ebs', 'access_key', 'secret_access_key');
-        $this->assertTrue($object instanceof Zend_Service_Amazon_Ec2_Ebs);
+        $this->assertInstanceOf(Zend_Service_Amazon_Ec2_Ebs::class, $object);
     }
 
     public function testFactoryReturnImageObject()
     {
         $object = Zend_Service_Amazon_Ec2::factory('image', 'access_key', 'secret_access_key');
-        $this->assertTrue($object instanceof Zend_Service_Amazon_Ec2_Image);
+        $this->assertInstanceOf(Zend_Service_Amazon_Ec2_Image::class, $object);
     }
 
     public function testFactoryReturnsInstanceObject()
     {
         $object = Zend_Service_Amazon_Ec2::factory('instance', 'access_key', 'secret_access_key');
-        $this->assertTrue($object instanceof Zend_Service_Amazon_Ec2_Instance);
+        $this->assertInstanceOf(Zend_Service_Amazon_Ec2_Instance::class, $object);
     }
 
     public function testFactoryReturnsSecurityGroupsObject()
     {
         $object = Zend_Service_Amazon_Ec2::factory('security', 'access_key', 'secret_access_key');
-        $this->assertTrue($object instanceof Zend_Service_Amazon_Ec2_Securitygroups);
+        $this->assertInstanceOf(Zend_Service_Amazon_Ec2_Securitygroups::class, $object);
     }
 }

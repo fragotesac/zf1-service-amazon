@@ -99,7 +99,7 @@ class Zend_Service_Amazon_OfflineTest extends PHPUnit\Framework\TestCase
 
         foreach ($result as $item) {
             $trackCount = $mozartTracks[$item->ASIN];
-            $this->assertEquals($trackCount, count($item->Tracks));
+            $this->assertCount($trackCount, $item->Tracks);
         }
     }
 
@@ -321,7 +321,7 @@ class Zend_Service_Amazon_OfflineTest extends PHPUnit\Framework\TestCase
         } catch (Zend_Service_Amazon_Exception $e) {
             $this->fail('Unexpected exception was triggered');
         }
-        $this->assertTrue($currentItem instanceof Zend_Service_Amazon_Item);
+        $this->assertInstanceOf(Zend_Service_Amazon_Item::class, $currentItem);
         $this->assertEquals('0754512673', $currentItem->ASIN);
     }
 

@@ -128,7 +128,7 @@ class Zend_Service_Amazon_OnlineTest extends PHPUnit\Framework\TestCase
         }
 
         foreach ($resultSet as $item) {
-            $this->assertTrue($item instanceof Zend_Service_Amazon_Item);
+            $this->assertInstanceOf(Zend_Service_Amazon_Item::class, $item);
         }
 
         $this->assertTrue(simplexml_load_string($item->asXml()) instanceof SimpleXMLElement);
@@ -148,7 +148,7 @@ class Zend_Service_Amazon_OnlineTest extends PHPUnit\Framework\TestCase
             ));
 
         foreach ($resultSet as $item) {
-            $this->assertTrue($item instanceof Zend_Service_Amazon_Item);
+            $this->assertInstanceOf(Zend_Service_Amazon_Item::class, $item);
         }
     }
 
@@ -166,7 +166,7 @@ class Zend_Service_Amazon_OnlineTest extends PHPUnit\Framework\TestCase
             ));
 
         foreach ($resultSet as $item) {
-            $this->assertTrue($item instanceof Zend_Service_Amazon_Item);
+            $this->assertInstanceOf(Zend_Service_Amazon_Item::class, $item);
         }
     }
 
@@ -184,7 +184,7 @@ class Zend_Service_Amazon_OnlineTest extends PHPUnit\Framework\TestCase
             ));
 
         foreach ($resultSet as $item) {
-            $this->assertTrue($item instanceof Zend_Service_Amazon_Item);
+            $this->assertInstanceOf(Zend_Service_Amazon_Item::class, $item);
         }
     }
 
@@ -214,7 +214,7 @@ class Zend_Service_Amazon_OnlineTest extends PHPUnit\Framework\TestCase
     public function testItemLookup()
     {
         $item = $this->_amazon->itemLookup('B0015T963C');
-        $this->assertTrue($item instanceof Zend_Service_Amazon_Item);
+        $this->assertInstanceOf(Zend_Service_Amazon_Item::class, $item);
     }
 
     /**
@@ -243,7 +243,7 @@ class Zend_Service_Amazon_OnlineTest extends PHPUnit\Framework\TestCase
 
         $count = 0;
         foreach ($resultSet as $item) {
-            $this->assertTrue($item instanceof Zend_Service_Amazon_Item);
+            $this->assertInstanceOf(Zend_Service_Amazon_Item::class, $item);
             $count++;
         }
 
@@ -275,7 +275,7 @@ class Zend_Service_Amazon_OnlineTest extends PHPUnit\Framework\TestCase
         $resultSet = $this->_query->category('Books')->Keywords('php')->search();
 
         foreach ($resultSet as $item) {
-            $this->assertTrue($item instanceof Zend_Service_Amazon_Item);
+            $this->assertInstanceOf(Zend_Service_Amazon_Item::class, $item);
         }
     }
 
@@ -317,6 +317,6 @@ class Zend_Service_Amazon_OnlineTest extends PHPUnit\Framework\TestCase
     public function testQueryAsin()
     {
         $item = $this->_query->asin('B0015T963C')->search();
-        $this->assertTrue($item instanceof Zend_Service_Amazon_Item);
+        $this->assertInstanceOf(Zend_Service_Amazon_Item::class, $item);
     }
 }

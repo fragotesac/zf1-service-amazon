@@ -114,7 +114,7 @@ class Zend_Service_Amazon_S3_OnlineTest extends PHPUnit\Framework\TestCase
         $this->_amazon->putObject($this->_bucket . '/zftest', 'testdata');
         $response = $this->_amazon->getObjectStream($this->_bucket . '/zftest');
 
-        $this->assertTrue($response instanceof Zend_Http_Response_Stream, 'The test did not return stream response');
+        $this->assertInstanceOf(Zend_Http_Response_Stream::class, $response, 'The test did not return stream response');
         $this->assertIsResource($response->getStream(), 'Request does not contain stream!');
 
         $stream_name = $response->getStreamName();
@@ -138,7 +138,7 @@ class Zend_Service_Amazon_S3_OnlineTest extends PHPUnit\Framework\TestCase
 
         $response = $this->_amazon->getObjectStream($this->_bucket . '/zftest', $outfile);
 
-        $this->assertTrue($response instanceof Zend_Http_Response_Stream, 'The test did not return stream response');
+        $this->assertInstanceOf(Zend_Http_Response_Stream::class, $response, 'The test did not return stream response');
         $this->assertIsResource($response->getStream(), 'Request does not contain stream!');
 
         $this->assertEquals($outfile, $response->getStreamName());

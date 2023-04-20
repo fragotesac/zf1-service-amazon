@@ -35,6 +35,7 @@
  */
 class Zend_Service_Amazon_Ec2_RegionTest extends PHPUnit\Framework\TestCase
 {
+    protected $adapter;
 
     /**
      * @var Zend_Service_Amazon_Ec2_Availabilityzones
@@ -65,7 +66,7 @@ class Zend_Service_Amazon_Ec2_RegionTest extends PHPUnit\Framework\TestCase
     {
         unset($this->adapter);
 
-        $this->Zend_Service_Amazon_Ec2_Availabilityzones = null;
+        $this->Zend_Service_Amazon_Ec2_Region = null;
 
         parent::tearDown();
     }

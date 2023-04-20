@@ -35,6 +35,7 @@
  */
 class Zend_Service_Amazon_Ec2_ElasticipTest extends PHPUnit\Framework\TestCase
 {
+    protected $adapter;
 
     /**
      * @var Zend_Service_Amazon_Ec2_Elasticip
