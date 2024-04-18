@@ -24,3 +24,11 @@ parameters:
         -
             message: '#Result of && is always false\.#'
             path: ./src/Zend/Service/Amazon/SimpleDb.php
+        -
+            message: '#Access to an undefined property DOMNode::\$tagName\.#'
+            path: ./src/Zend/Service/Amazon/Item.php
+            count: 6
+        -
+            message: '#Variable \$valueNodes in empty\(\) is never defined\.#'
+            path: ./src/Zend/Service/Amazon/SimpleDb.php
+            count: 1

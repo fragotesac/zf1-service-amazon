@@ -33,6 +33,8 @@
  */
 class Zend_Service_Amazon_S3_StreamTest extends PHPUnit\Framework\TestCase
 {
+    protected $_amazon;
+    
     /**
      * Sets up this test case
      *

@@ -53,6 +53,9 @@ class Zend_Service_Amazon_OfflineTest extends PHPUnit\Framework\TestCase
      */
     public function setUp(): void
     {
+        if (!defined('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ACCESSKEYID')) {
+            $this->markTestSkipped('Amazon access key ID not configured');
+        }
         $this->_amazon = new Zend_Service_Amazon(constant('TESTS_ZEND_SERVICE_AMAZON_ONLINE_ACCESSKEYID'));
 
         $this->_httpClientAdapterTest = new Zend_Http_Client_Adapter_Test();
@@ -228,7 +231,7 @@ class Zend_Service_Amazon_OfflineTest extends PHPUnit\Framework\TestCase
         }
     }
 
-    public function dataSignatureEncryption()
+    public static function dataSignatureEncryption()
     {
         return array(
             array(
