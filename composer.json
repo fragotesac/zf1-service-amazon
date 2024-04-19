@@ -14,14 +14,14 @@
         "ext-SimpleXML": "*",
         "ext-libxml": "*",
         "php": "~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0",
-        "diablomedia/zendframework1-service": "^1.0.0",
-        "diablomedia/zendframework1-uri": "^1.0.0",
-        "diablomedia/zendframework1-http": "^1.0.0",
-        "diablomedia/zendframework1-crypt": "^1.0.0",
-        "diablomedia/zendframework1-loader": "^1.0.0",
+        "diablomedia/zendframework1-service": "^1.0.4",
+        "diablomedia/zendframework1-uri": "^1.0.5",
+        "diablomedia/zendframework1-http": "^1.0.5",
+        "diablomedia/zendframework1-crypt": "^1.0.5",
+        "diablomedia/zendframework1-loader": "^1.0.5",
         "diablomedia/zendframework1-xml": "^1.0.5",
-        "diablomedia/zendframework1-json": "^1.0.3",
-        "diablomedia/zendframework1-rest": "^1.0.0"
+        "diablomedia/zendframework1-json": "^1.0.7",
+        "diablomedia/zendframework1-rest": "^1.0.5"
     },
     "autoload": {
         "psr-0": {
